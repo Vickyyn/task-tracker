@@ -3,6 +3,9 @@ import datetime
 class RangeError(Exception):
     pass
 
+class WordValueError(ValueError):
+    pass
+
 
 class Task:
     # def __init__(self, name, duration, year, month, day):
@@ -66,6 +69,7 @@ def date_fx(prompt):
             month = None
             year = None
     return due_date
+
 
 
 # test = Task("laundry", 35, 2000, 10, 3)
