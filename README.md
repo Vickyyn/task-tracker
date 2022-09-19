@@ -15,6 +15,10 @@ Trello
 including set of instruction which accurately describe how to use and install the application 
 
 
+NOTES:
+PEP8: Limit all lines to maximum of 79 characters
+
+
 Other notes:
 - 4 or more Python packages into the code
 - makes extensive use of functions from one or more Python packages (beyond req of apps)
