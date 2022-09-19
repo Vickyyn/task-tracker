@@ -23,10 +23,15 @@ class Task:
         return self.__name, self.__duration, self.__due_date.strftime('%Y/%m/%d')
 
     @values.setter
-    def values(self, name, duration, year, month, day):
+    # def values(self, name, duration, year, month, day):
+    #     self.__name = name
+    #     self.__duration = duration
+    #     self.__due_date = datetime.datetime(year, month, day).date()   
+
+    def values(self, name, duration, due_date):
         self.__name = name
         self.__duration = duration
-        self.__due_date = datetime.datetime(year, month, day).date()    
+        self.__due_date = due_date          
 
 
 def duration_fx(prompt):
