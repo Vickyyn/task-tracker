@@ -1,34 +1,36 @@
-from unicodedata import name
-
+import datetime
 
 class Task:
-    def __init__(self, name, duration, due_date):
-        self.task = name, duration, due_date
+    def __init__(self, name, duration, year, month, day):
+        self.__name = name
+        self.__duration = duration
+        self.__due_date = datetime.datetime(year, month, day).date()
 
     @property
-    def task(self):
-        return self.__name, self.__duration, self.__due_date
+    def values(self):
+        return self.__name, self.__duration, self.__due_date.strftime('%d/%m/%Y')
 
-    @task.setter
-    def task(self, name, duration, due_date):
-        self.__name = name  
+    @property
+    def date(self):
+        return self.__due_date
 
-        try:
-            self.__duration = duration
-        except ValueError:
-            print("Duration must be a number")
+    @values.setter
+    def values(self, name, duration, year, month, day):
+        self.__name = name
+        self.__duration = duration
+        self.__due_date = datetime.datetime(year, month, day).date()    
 
-        try:
-            self.__due_date = due_date
-        except ValueError:
-            print("Please enter in YYYY/MM/DD")
 
-    # @task.deleter
-    # def task(self):
-    #     response = input((f'Are you sure you want to deleted {self.__name}?'))
-    #     if response.upper() == 'YES' or 'Y':
+def duration_fx(prompt):
+    user_input = input(prompt)
+    hour, minute = map(int, user_input.split(':'))
+    return hour*60 + minute
 
-        
-    #     print(f'{self.__name} has been deleted!')
+def date_fx(prompt):
+    user_input = input(prompt)
+    day, month, year = map(int, user_input.split('/'))
+    return year, month, day
 
-class Chore
+# test = Task("laundry", 35, 2000, 10, 3)
+# print(test.date)
+# print(test.values)
