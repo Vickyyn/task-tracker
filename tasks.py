@@ -8,30 +8,22 @@ class WordValueError(ValueError):
 
 
 class Task:
-    # def __init__(self, name, duration, year, month, day):
-    #     self.__name = name
-    #     self.__duration = duration
-    #     self.__due_date = datetime.datetime(year, month, day).date()
-
-    def __init__(self, name, duration, due_date):
+    def __init__(self, name, duration, year, month, day):
         self.__name = name
         self.__duration = duration
-        self.__due_date = due_date
+        self.__due_date = datetime.datetime(year, month, day).date()
 
     @property
     def values(self):
-        return self.__name, self.__duration, self.__due_date.strftime('%Y/%m/%d')
+        return self.__name, self.__duration, self.__due_date
+        # .strftime('%Y-%m-%d')
 
     @values.setter
-    # def values(self, name, duration, year, month, day):
-    #     self.__name = name
-    #     self.__duration = duration
-    #     self.__due_date = datetime.datetime(year, month, day).date()   
-
-    def values(self, name, duration, due_date):
+    def values(self, value_tuple):
+        name, duration, year, month, day = value_tuple
         self.__name = name
         self.__duration = duration
-        self.__due_date = due_date          
+        self.__due_date = datetime.datetime(year, month, day).date()      
 
 
 def duration_fx(prompt):
@@ -73,8 +65,26 @@ def date_fx(prompt):
             day = None
             month = None
             year = None
-    return due_date
+    return due_date, year, month, day
 
+def change_task(name_prompt, duration_prompt, date_prompt):
+    name = input(name_prompt)
+    duration = duration_fx(duration_prompt)
+    due_date, year, month, day = date_fx(date_prompt)
+    return name, duration, due_date, year, month, day
+
+def add_task():
+    change_task(
+        "You are adding a new task! \nWhat is the name of the task? ",
+        "Approximately how much time does it take to do the task? Please input in HH:MM format. ",
+        "When does the task need to be completed by? Please input in DD/MM/YYYY format. ")
+    
+def edit_task():
+    change_task(
+        "What would you like the new name to be? ",
+        "What is the new estimated time to complete the task? Please input in HH:MM format. ",
+        "When is the new completion date? Please input in DD/MM/YYYY format. "
+    )
 
 
 # test = Task("laundry", 35, 2000, 10, 3)

@@ -1,7 +1,8 @@
 # Task Tracker
 
-# Imports
+# Imports including datetime from tasks file
 from tasks import *
+import pickle
 
 while True:
     # Welcome /  Main Menu
@@ -19,19 +20,21 @@ while True:
         # Add tasks
         add_input = True
         while add_input:
-            name = input("You are adding a new task! \nWhat is the name of the task? ")
-            duration = duration_fx("Approximately how much time does it take to do the task? Please input in HH:MM format. ")
-            due_date = date_fx("When does the task need to be completed by? Please input in DD/MM/YYYY format. ")
-
+            name, duration, due_date, year, month, day = change_task(
+                "You are adding a new task! \nWhat is the name of the task? ",
+                "Approximately how much time does it take to do the task? Please input in HH:MM format. ",
+                "When does the task need to be completed by? Please input in DD/MM/YYYY format. "
+            )
             # Create and log the task 
-            new_task = Task(name, duration, due_date)
-            f = open('tasks-list.txt', 'a')
-            f.write(f"{str(new_task.values)}\n")
-            f.close()
+            new_task = Task(name, duration, year, month, day)
 
+            pickle_out = open('tasks.pkl', 'wb')
+            pickle.dump(new_task, pickle_out)
+            pickle_out.close()
+            
             # Confirm to user that task has been successfully created
             # print(f"\nThe following task has been successfully added! \nName: {name} \nTime needed: {duration} minutes \nComplete by: {datetime.datetime(year, month, day).date()}")
-            print(f"\nThe following task has been successfully added! \nName: {new_task.values[0]} \nTime needed: {new_task.values[1]} minutes \nComplete by (year/month/date): {new_task.values[2]} \n")
+            print(f"\nThe following task has been successfully added! \nName: {new_task.values[0]} \nTime needed: {new_task.values[1]} minutes \nComplete by (year-month-date): {new_task.values[2]} \n")
 
             # Loop until a correct next step input is received
             while True:
@@ -51,14 +54,22 @@ while True:
         # Edit or delete a task
         # Edit
         edit_name = input("Please enter the name of the task you would like to edit: ")
-        f = open('tasks-list.txt', 'a')
+        f = open('tasks-list.txt', 'r')
         for row in f.readlines():
-            if row.find(edit_name) == 0:
-                original_task = Task(row)
-                name = input("What would you like the new name to be? ")
-                duration = duration_fx("What is the new estimated time to complete the task? Please input in HH:MM format. ")
-                due_date = date_fx("When is the new completion date? Please input in DD/MM/YYYY format. ")
-                new_task = original_task.values(name, duration, due_date)
+            if row.find(edit_name) >=0:
+                old_name, old_duration, old_due_date = map(str, row[1:-2].split(', '))
+                print("You are now editing the task:")
+                print(f'Name: {old_name}')
+                print(f'Duration: {old_duration}')
+                print(f'Completion date: {old_due_date}')
+                # Converting back to an instance (or creating a new one)
+
+
+                row.replace(str(old_task.values), str(new_task.values))
+                break 
+        f.close() 
+
+
                 
 
 
