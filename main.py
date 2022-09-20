@@ -17,6 +17,13 @@ while True:
         print(main_response.lower())
 
     elif main_response.lower() in {"2", "a", "add"}:
+        # Create pickle file if it does not already exist
+        try:
+            with open("tasks.pkl", "x") as file:
+                pass 
+        except FileExistsError:
+            pass 
+
         # Add tasks
         add_input = True
         while add_input:
@@ -28,10 +35,21 @@ while True:
             # Create task with the same name 
             name = Task(name, duration, year, month, day)
 
-            pickle_out = open('tasks.pkl', 'ab')
-            pickle.dump(name, pickle_out)
-            pickle_out.close()
-            
+            # Pickle task
+            with open("tasks.pickle", "ab") as file:
+                pickle.dump(name, file)
+            # with open("tasks.pkl", "rb") as file:
+            #     try: 
+            #         task_list = pickle.load(file)
+            #     except EOFError:
+            #         task_list = []
+
+            # task_list.append(name)
+
+            # with open("tasks.pkl", "wb") as file:
+            #     pickle.dump(task_list, file)
+            # print(task_list)
+
             # Confirm to user that task has been successfully created
             # print(f"\nThe following task has been successfully added! \nName: {name} \nTime needed: {duration} minutes \nComplete by: {datetime.datetime(year, month, day).date()}")
             print(f"\nThe following task has been successfully added! \nName: {name.values[0]} \nTime needed: {name.values[1]} minutes \nComplete by (year-month-date): {name.values[2]} \n")
@@ -55,13 +73,14 @@ while True:
         # Edit
         edit_name = input("Please enter the name of the task you would like to edit: ")
 
-        with open ('tasks.pkl', 'r+b') as file:
+        with open ('tasks.pkl', 'rb') as file:
             while True:
                 try:
                     a = pickle.load(file)
                 except EOFError:
                     print("Nothing with this name was found. Please try again. ")
                     break
+                task_list.append(a)
                 else:
                     if a.values[0] == edit_name:
                         print(f"You are editing: \nName: {a.values[0]} \nDuration: {a.values [1]}: \nComplete by (Y-M-D): {a.values[2]}")
