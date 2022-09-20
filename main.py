@@ -28,7 +28,7 @@ while True:
             # Create and log the task 
             new_task = Task(name, duration, year, month, day)
 
-            pickle_out = open('tasks.pkl', 'wb')
+            pickle_out = open('tasks.pkl', 'ab')
             pickle.dump(new_task, pickle_out)
             pickle_out.close()
             
@@ -54,21 +54,10 @@ while True:
         # Edit or delete a task
         # Edit
         edit_name = input("Please enter the name of the task you would like to edit: ")
-        f = open('tasks-list.txt', 'r')
-        for row in f.readlines():
-            if row.find(edit_name) >=0:
-                old_name, old_duration, old_due_date = map(str, row[1:-2].split(', '))
-                print("You are now editing the task:")
-                print(f'Name: {old_name}')
-                print(f'Duration: {old_duration}')
-                print(f'Completion date: {old_due_date}')
-                # Converting back to an instance (or creating a new one)
-
-
-                row.replace(str(old_task.values), str(new_task.values))
-                break 
-        f.close() 
-
+        with open ('tasks.pkl', 'rb') as file:
+            
+            tasks = pickle.load(file)
+            print(tasks.__dict__)
 
                 
 
