@@ -74,33 +74,41 @@
 # test = Currency(2, 3, 4)
 # print(test)\
 
-import datetime
+# import datetime
 
-class Task:
-    def __init__(self, name, duration, year, month, day):
-        self.__name = name
-        self.__duration = duration
-        self.__due_date = datetime.datetime(year, month, day).date()
+# class Task:
+#     def __init__(self, name, duration, year, month, day):
+#         self.__name = name
+#         self.__duration = duration
+#         self.__due_date = datetime.datetime(year, month, day).date()
 
-    @property
-    def values(self):
-        return self.__name, self.__duration, self.__due_date.strftime('%Y-%m-%d')
+#     @property
+#     def values(self):
+#         return self.__name, self.__duration, self.__due_date.strftime('%Y-%m-%d')
 
-    @values.setter
-    def values(self, name, duration, year, month, day):
-        self.__name = name
-        self.__duration = duration
-        self.__due_date = datetime.datetime(year, month, day).date()   
+#     @values.setter
+#     def values(self, name, duration, year, month, day):
+#         self.__name = name
+#         self.__duration = duration
+#         self.__due_date = datetime.datetime(year, month, day).date()   
 
-    @values.setter
-    def values(self, tuple):
-        name, duration, year, month, day = tuple
-        self.__name = name
-        self.__duration = duration
-        self.__due_date = datetime.datetime(year, month, day).date()   
+#     @values.setter
+#     def values(self, tuple):
+#         name, duration, year, month, day = tuple
+#         self.__name = name
+#         self.__duration = duration
+#         self.__due_date = datetime.datetime(year, month, day).date()   
 
 
-Test1 = Task('dishes', 35, 2022, 9, 21)
-Test1.values = 'sink', 40, 2022, 9, 21
-Test2 = Test1.values('sink', 40, 2022, 9, 21)
-print(Test1.values)
+# Test1 = Task('dishes', 35, 2022, 9, 21)
+# Test1.values = 'sink', 40, 2022, 9, 21
+# Test2 = Test1.values('sink', 40, 2022, 9, 21)
+# print(Test1.values)
+
+from tasks import *
+import pickle
+
+name = input("Name here: ")
+name = Task(name, 5, 3, 2, 1)
+
+print(name.__dict__)

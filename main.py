@@ -25,16 +25,16 @@ while True:
                 "Approximately how much time does it take to do the task? Please input in HH:MM format. ",
                 "When does the task need to be completed by? Please input in DD/MM/YYYY format. "
             )
-            # Create and log the task 
-            new_task = Task(name, duration, year, month, day)
+            # Create task with the same name 
+            name = Task(name, duration, year, month, day)
 
             pickle_out = open('tasks.pkl', 'ab')
-            pickle.dump(new_task, pickle_out)
+            pickle.dump(name, pickle_out)
             pickle_out.close()
             
             # Confirm to user that task has been successfully created
             # print(f"\nThe following task has been successfully added! \nName: {name} \nTime needed: {duration} minutes \nComplete by: {datetime.datetime(year, month, day).date()}")
-            print(f"\nThe following task has been successfully added! \nName: {new_task.values[0]} \nTime needed: {new_task.values[1]} minutes \nComplete by (year-month-date): {new_task.values[2]} \n")
+            print(f"\nThe following task has been successfully added! \nName: {name.values[0]} \nTime needed: {name.values[1]} minutes \nComplete by (year-month-date): {name.values[2]} \n")
 
             # Loop until a correct next step input is received
             while True:
@@ -54,10 +54,13 @@ while True:
         # Edit or delete a task
         # Edit
         edit_name = input("Please enter the name of the task you would like to edit: ")
+
         with open ('tasks.pkl', 'rb') as file:
             
             tasks = pickle.load(file)
+            task1 = pickle.load(file)
             print(tasks.__dict__)
+            print(task1.__dict__)
 
                 
 
