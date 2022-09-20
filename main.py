@@ -55,12 +55,32 @@ while True:
         # Edit
         edit_name = input("Please enter the name of the task you would like to edit: ")
 
-        with open ('tasks.pkl', 'rb') as file:
-            
-            tasks = pickle.load(file)
-            task1 = pickle.load(file)
-            print(tasks.__dict__)
-            print(task1.__dict__)
+        with open ('tasks.pkl', 'r+b') as file:
+            while True:
+                try:
+                    a = pickle.load(file)
+                except EOFError:
+                    print("Nothing with this name was found. Please try again. ")
+                    break
+                else:
+                    if a.values[0] == edit_name:
+                        print(f"You are editing: \nName: {a.values[0]} \nDuration: {a.values [1]}: \nComplete by (Y-M-D): {a.values[2]}")
+                        name, duration, due_date, year, month, day = change_task(
+                            "What would you like the new name to be? ",
+                            "What is the new estimated time to complete the task? Please input in HH:MM format. ",
+                            "When is the new completion date? Please input in DD/MM/YYYY format. "
+                            )
+                        a.values = (name, duration, year, month, day)
+                        print(f"You have edited {a.values[0]} to: \nDuration: {a.values[1]} \nComplete by (Y-M-D): {a.values[2]}")
+                        break
+
+    elif main_response.lower() in {"5", "exit"}:
+        raise SystemExit
+
+
+                
+   
+
 
                 
 

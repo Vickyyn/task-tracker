@@ -108,7 +108,17 @@
 from tasks import *
 import pickle
 
-name = input("Name here: ")
-name = Task(name, 5, 3, 2, 1)
+# name = input("Name here: ")
+# name = Task(name, 5, 3, 2, 1)
 
-print(name.__dict__)
+# print(name.__dict__)
+name1 = Task('shower', 5, 4, 3, 2)
+name2 = Task('leggings', 5, 4, 3, 2)
+name3 = Task('blanket', 5, 4, 3, 2)
+name4 = Task('sleep', 5, 4, 3, 2)
+pickle_out = open('tasks.pkl', 'ab')
+pickle.dump(name1, pickle_out)
+pickle_out.close()
+
+list = [name1, name2, name3, name4]
+print(list)

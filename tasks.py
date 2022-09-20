@@ -6,6 +6,9 @@ class RangeError(Exception):
 class WordValueError(ValueError):
     pass
 
+class SearchError(Exception):
+    pass
+
 
 class Task:
     def __init__(self, name, duration, year, month, day):
