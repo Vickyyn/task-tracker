@@ -138,12 +138,22 @@ def write_pickle(task_list):
 
 def change_name_if_repeat(named_task, task_list):
     while True:
-        for task in task_list:
-            if task.values[0] == named_task.values[0]:
-                named_task.values[0] = input("A task with this name already exists. \nPlease input a new name: ")
         # Continue looping until only one unique name (as may change to a non-unique name that has already been passed in the first for loop)
-        if not sum(task.values[0] == named_task.values[0]):
+        i = 0
+        for task in task_list:
+            i += 1
+            if named_task.values[0] == task.values[0]:
+                name, duration, due_date, year, month, day = change_task(
+                    "\nA task with this name already exists. \nPlease input a new name: ",
+                    "Duration: ",
+                    "Complete by (D/M/Y): "
+                )
+                named_task.values = (name, duration, year, month, day)
+                i = 0
+        
+        if i == len(task_list):
             break
+    return named_task
 
 # test = Task("laundry", 35, 2000, 10, 3)
 # print(test.date)

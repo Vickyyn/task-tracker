@@ -62,9 +62,6 @@ while True:
                 if i == len(task_list):
                     break
 
-                    
-                
-
             task_list.append(named_task)
             write_pickle(task_list)
    
@@ -111,13 +108,20 @@ while True:
                         )
                     i.values = (name, duration, year, month, day)
                     while True:
+                        counter = 0
                         for task in task_list:
-                            if sum(i.values[0] == task.values[0]) > 1:
-                                name = input("A task with this name already exists. \nPlease input a new name: ")
-                                i.values[0] = name 
-                        # Continue looping until only one unique name (as may change to a non-unique name that has already been passed in the first for loop)
-                        if sum(i.values[0] == task.values[0]) == 1:
+                            if i.values[0] == task.values[0]:
+                                counter += 1
+                        if counter == 1:
                             break
+                        if counter == 2:
+                            name, duration, due_date, year, month, day = change_task(
+                                "\nA task with this name already exists. \nPlease input a new name: ",
+                                "Duration: ",
+                                "Complete by (D/M/Y): "
+                            )
+                            i.values = (name, duration, year, month, day)
+
                     print(f"\nYou have edited to: \nName: {i.values[0]} \nDuration: {i.values[1]} \nComplete by (Y-M-D): {i.values[2]}")
                     break
 
