@@ -8,8 +8,8 @@ while True:
     # Welcome /  Main Menu
     main_response = input("\nWelcome to Task Tracker! \nToday's date is "
     f"{datetime.datetime.now().date()} \n\nPlease select from options below: \n "
-    "1. View tasks \n 2. Add a new task \n 3. Edit or delete a task \n "
-    "4. Complete a task \n 5. Exit \n\n")
+    "1. View tasks \n 2. Add tasks \n 3. Edit tasks \n 4. Delete tasks \n "
+    "5. Complete tasks \n 6. Exit \n\n")
 
     if main_response.lower() in {"1", "v", "view"}:
         # View tasks
@@ -70,20 +70,9 @@ while True:
             print(f"\nThe following task has been successfully added! \nName: {task_list[-1].values[0]} \nTime needed: {task_list[-1].values[1]} minutes \nComplete by (year-month-date): {task_list[-1].values[2]} \n")
 
             # Loop until a correct next step input is received
-            while True:
-                add_input = input("Enter 'add' to add another task, 'back' to return to main menu, or 'quit' to exit. ")
-                if add_input.lower() == "add":
-                    print("")
-                    break
-                if add_input.lower() == "back":
-                    print("")
-                    add_input = False
-                    break
-                if add_input.lower() == "quit":
-                    raise SystemExit
-                print("Please enter 'add', 'back', or 'quit'")
+            add_input = loop_page('add')
             
-    elif main_response.lower() in {"3", "e", "edit", "d", "delete"}:
+    elif main_response.lower() in {"3", "e", "edit"}:
         # Edit or delete a task
         edit_input = True
         while edit_input:
@@ -91,10 +80,6 @@ while True:
             task_list = read_blank_pickle()
             if not task_list:
                 break
-
-            # if not task_list:
-            #     none_input = input("You have no tasks currently. Please add a task. Press enter to return.\n")
-            #     break
 
             edit_name = input("Please enter the name of the task you would like to edit: ")            
 
@@ -126,16 +111,53 @@ while True:
                     break
 
             write_pickle(task_list)
-
+            
             # Prompt next step from user
             edit_input = loop_page('edit')
         
 
 
+    elif main_response.lower() in {"4", "d", "delete"}:
+     # Delete a task
+        delete_input = True
+        while delete_input:
+
+            task_list = read_blank_pickle()
+            if not task_list:
+                break
+
+            delete_name = input("Please enter the name of the task you would like to delete: ")            
+
+            for i in task_list:
+                if i.values[0] == delete_name:
+                    print(f"You are deleting: \nName: {i.values[0]} \nDuration: {i.values [1]}: \nComplete by (Y-M-D): {i.values[2]} \n")
+                    while delete_input != 'no':
+                        try:
+                            delete_input = input("Are you sure you want to delete? ")
+                            if delete_input.lower() in {"y", "yes"}:
+                                task_list.remove(i)
+                                print(task_list)
+                                print("Deletion successful \n") 
+                                delete_input = 'no'
+                            elif delete_input.lower() in {"n", "no"}:
+                                delete_input = 'no'
+                            else:
+                                raise ValueError
+                        except ValueError:
+                            delete_input = input("Please enter 'yes' or 'no' ")
+                
+            write_pickle(task_list)   
+
+            delete_input = loop_page('delete')
 
 
 
-    elif main_response.lower() in {"5", "exit"}:
+
+
+       
+
+
+    elif main_response.lower() in {"6", "exit"}:
         raise SystemExit
 
 

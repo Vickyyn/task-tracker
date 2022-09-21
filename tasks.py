@@ -29,7 +29,6 @@ class Task:
         self.__duration = duration
         self.__due_date = datetime.datetime(year, month, day).date()      
 
-
 def duration_fx(prompt):
     hour = None
     minute = None
@@ -92,10 +91,10 @@ def change_task(name_prompt, duration_prompt, date_prompt):
 
 def loop_page(page):
     while True:
-        page_input = input(f"Enter '{page}' to {page} another task, 'back' to return to main menu, or 'quit' to exit. ")
+        page_input = input(f"Enter '{page.lower()}' to {page.lower()} another task, 'back' to return to main menu, or 'quit' to exit. ")
         if page_input.lower() == page:
             print("")
-            break
+            return True
         if page_input.lower() == "back":
             print("")
             return False
