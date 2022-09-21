@@ -36,8 +36,12 @@ def duration_fx(prompt):
         try:
             user_input = input(prompt)
             hour, minute = map(int, user_input.split(':'))
-            if minute >=60:
+            if (hour != 0) and (minute == 0):
+                break
+            elif minute >=60:
                 raise RangeError("Minutes must be between 0 and 59 inclusive")
+            elif (hour == 0) and (minute == 0):
+                raise RangeError("Tasks must be at least one minute long!")
         except RangeError as err:
             print(err)
             minute = None
