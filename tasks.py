@@ -136,6 +136,14 @@ def write_pickle(task_list):
     with open("tasks.pkl", "wb") as file:
         pickle.dump(task_list, file)
 
+def change_name_if_repeat(named_task, task_list):
+    while True:
+        for task in task_list:
+            if task.values[0] == named_task.values[0]:
+                named_task.values[0] = input("A task with this name already exists. \nPlease input a new name: ")
+        # Continue looping until only one unique name (as may change to a non-unique name that has already been passed in the first for loop)
+        if not sum(task.values[0] == named_task.values[0]):
+            break
 
 # test = Task("laundry", 35, 2000, 10, 3)
 # print(test.date)

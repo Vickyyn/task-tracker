@@ -40,16 +40,37 @@ while True:
                 "When does the task need to be completed by? Please input in DD/MM/YYYY format. "
             )
             # Create task with the same name 
-            name = Task(name, duration, year, month, day)
+            named_task = Task(name, duration, year, month, day)
 
             # Pickle task
             task_list = read_pickle()
-            task_list.append(name)
+
+            while True:
+                # Continue looping until only one unique name (as may change to a non-unique name that has already been passed in the first for loop)
+                i = 0
+                for task in task_list:
+                    i += 1
+                    if named_task.values[0] == task.values[0]:
+                        name, duration, due_date, year, month, day = change_task(
+                            "\nA task with this name already exists. \nPlease input a new name: ",
+                            "Duration: ",
+                            "Complete by (D/M/Y): "
+                        )
+                        named_task.values = (name, duration, year, month, day)
+                        i = 0
+                
+                if i == len(task_list):
+                    break
+
+                    
+                
+
+            task_list.append(named_task)
             write_pickle(task_list)
    
             # Confirm to user that task has been successfully created
             # print(f"\nThe following task has been successfully added! \nName: {name} \nTime needed: {duration} minutes \nComplete by: {datetime.datetime(year, month, day).date()}")
-            print(f"\nThe following task has been successfully added! \nName: {task_list[-1].values[0]} \nTime needed: {name.values[1]} minutes \nComplete by (year-month-date): {name.values[2]} \n")
+            print(f"\nThe following task has been successfully added! \nName: {task_list[-1].values[0]} \nTime needed: {task_list[-1].values[1]} minutes \nComplete by (year-month-date): {task_list[-1].values[2]} \n")
 
             # Loop until a correct next step input is received
             while True:
@@ -89,7 +110,15 @@ while True:
                         "When is the new completion date? Please input in DD/MM/YYYY format. "
                         )
                     i.values = (name, duration, year, month, day)
-                    print(f"\nYou have edited {i.values[0]} to: \nDuration: {i.values[1]} \nComplete by (Y-M-D): {i.values[2]}")
+                    while True:
+                        for task in task_list:
+                            if sum(i.values[0] == task.values[0]) > 1:
+                                name = input("A task with this name already exists. \nPlease input a new name: ")
+                                i.values[0] = name 
+                        # Continue looping until only one unique name (as may change to a non-unique name that has already been passed in the first for loop)
+                        if sum(i.values[0] == task.values[0]) == 1:
+                            break
+                    print(f"\nYou have edited to: \nName: {i.values[0]} \nDuration: {i.values[1]} \nComplete by (Y-M-D): {i.values[2]}")
                     break
 
             write_pickle(task_list)
