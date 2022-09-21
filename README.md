@@ -18,6 +18,9 @@ including set of instruction which accurately describe how to use and install th
 NOTES:
 PEP8: Limit all lines to maximum of 79 characters
 
+cute fonts 'block' 'modular' 'dancingfont' 'funface' 'funfaces'
+
+
 
 Other notes:
 - 4 or more Python packages into the code

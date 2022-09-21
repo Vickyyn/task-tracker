@@ -7,7 +7,6 @@ from prettytable import PrettyTable
 
 tprint("Task Tracker", font = 'modular')
 
-# cute fonts 'block' 'modular' 'dancingfont' 'funface' 'funfaces'
 
 while True:
     # Welcome /  Main Menu
@@ -19,18 +18,39 @@ while True:
     if main_response.lower() in {"1", "v", "view"}:
         # View tasks
         # Sort tasks by variables
-        task_list = read_if_blank_pickle()
-        if not task_list:
-            break
+        view_input = True
+        while view_input: 
+            task_list = read_if_blank_pickle()
+            if not task_list:
+                break
 
-        table = PrettyTable()
-        table.field_names = ["Name", "Time needed", "Complete by"]
+            table = PrettyTable()
+            table.field_names = ["Name", "Time needed", "Complete by"]
+            for task in task_list:
+                table.add_row([task.values[0], task.values[1], task.values[2]])
 
-        for task in task_list:
-            table.add_row([task.values[0], task.values[1], task.values[2]])
+            print(table)
+            print("")
+            view_input = input(
+                "You can view tasks by name, time needed, complete by, or the original creation time of the task prior to any editing. "
+                "\nPlease select from the list below: "
+                "\n 1. Order by Name \n 2. Order by Time needed \n 3. Order by Complete by date \n 4. Order by creation time (Default) \n")
+            if view_input.lower() in {'1', 'name', 'n'}:
+                print(table.get_string(sortby = 'Name'))
+                print("")
+            elif view_input.lower() in {'2', 'time needed', 't'}:
+                print(table.get_string(sortby = 'Time needed'))
+                print("")
+            elif view_input.lower() in {'3', 'complete by', 'c'}:
+                print(table.get_string(sortby = 'Complete by'))     
+                print("")     
+            elif view_input.lower() in {'4', 'd'}:
+                print(table)      
+                print("")                  
 
-        print(table)
-        print(table.get_string(sortby = 'Time needed'))
+            view_input = loop_page('view')    
+
+        
 
     elif main_response.lower() in {"2", "a", "add"}:
         # Create pickle file if it does not already exist
