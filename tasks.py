@@ -121,7 +121,7 @@ def read_pickle():
             task_list = []
     return task_list
 
-def read_blank_pickle():
+def read_if_blank_pickle():
     task_list = read_pickle()
     if not task_list:
         input("You have no tasks currently. Please add a task. Press enter to return.\n")

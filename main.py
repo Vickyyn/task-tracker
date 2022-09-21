@@ -3,6 +3,7 @@
 # Imports including datetime from tasks file
 from tasks import *
 from art import *
+from prettytable import PrettyTable
 
 tprint("Task Tracker", font = 'modular')
 
@@ -18,14 +19,18 @@ while True:
     if main_response.lower() in {"1", "v", "view"}:
         # View tasks
         # Sort tasks by variables
-        task_list = read_blank_pickle()
-
+        task_list = read_if_blank_pickle()
         if not task_list:
-            continue
-        else:
-            print(task_list)
-            for task in task_list:
-                print(task.values)
+            break
+
+        table = PrettyTable()
+        table.field_names = ["Name", "Time needed", "Complete by"]
+
+        for task in task_list:
+            table.add_row([task.values[0], task.values[1], task.values[2]])
+
+        print(table)
+        print(table.get_string(sortby = 'Time needed'))
 
     elif main_response.lower() in {"2", "a", "add"}:
         # Create pickle file if it does not already exist
@@ -81,7 +86,7 @@ while True:
         edit_input = True
         while edit_input:
 
-            task_list = read_blank_pickle()
+            task_list = read_if_blank_pickle()
             if not task_list:
                 break
 
@@ -129,7 +134,7 @@ while True:
         delete_input = True
         while delete_input:
 
-            task_list = read_blank_pickle()
+            task_list = read_if_blank_pickle()
             if not task_list:
                 break
 
@@ -164,7 +169,7 @@ while True:
         complete_input = True
         while complete_input:
 
-            task_list = read_blank_pickle()
+            task_list = read_if_blank_pickle()
             if not task_list:
                 break
 
