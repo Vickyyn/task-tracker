@@ -76,19 +76,6 @@ def change_task(name_prompt, duration_prompt, date_prompt):
     due_date, year, month, day = date_fx(date_prompt)
     return name, duration, due_date, year, month, day
 
-# def add_task():
-#     change_task(
-#         "You are adding a new task! \nWhat is the name of the task? ",
-#         "Approximately how much time does it take to do the task? Please input in HH:MM format. ",
-#         "When does the task need to be completed by? Please input in DD/MM/YYYY format. ")
-    
-# def edit_task():
-#     change_task(
-#         "What would you like the new name to be? ",
-#         "What is the new estimated time to complete the task? Please input in HH:MM format. ",
-#         "When is the new completion date? Please input in DD/MM/YYYY format. "
-#     )
-
 def loop_page(page):
     while True:
         page_input = input(f"Enter '{page.lower()}' to {page.lower()} another task, 'back' to return to main menu, or 'quit' to exit. ")
@@ -116,30 +103,7 @@ def read_pickle_msg_if_blank():
         input("You have no tasks currently. Please add a task. Press enter to return.\n")
     return task_list
 
-# def append_pickle(data):
-#     with open("tasks.pkl", "ab") as file:
-#         pickle.dump(data, file)
-
 def write_pickle(task_list):
     with open("tasks.pkl", "wb") as file:
         pickle.dump(task_list, file)
-
-def change_name_if_repeat(named_task, task_list):
-    while True:
-        # Continue looping until only one unique name (as may change to a non-unique name that has already been passed in the first for loop)
-        i = 0
-        for task in task_list:
-            i += 1
-            if named_task.values[0] == task.values[0]:
-                name, duration, due_date, year, month, day = change_task(
-                    "\nA task with this name already exists. \nPlease input a new name: ",
-                    "Duration: ",
-                    "Complete by (D/M/Y): "
-                )
-                named_task.values = (name, duration, year, month, day)
-                i = 0
-        
-        if i == len(task_list):
-            break
-    return named_task
 

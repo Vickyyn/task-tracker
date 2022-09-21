@@ -24,7 +24,7 @@ while True:
 
             # Creates viewing table utilising PrettyTable
             table = PrettyTable()
-            table.field_names = ["Name", "Time needed", "Complete by"]
+            table.field_names = ["Name", "Time needed (minutes)", "Complete by"]
             for task in task_list:
                 table.add_row([task.values[0], task.values[1], task.values[2]])
 
@@ -41,7 +41,7 @@ while True:
                 print(table.get_string(sortby = 'Name'))
                 print("")
             elif view_input.lower() in {'2', 'time needed', 't'}:
-                print(table.get_string(sortby = 'Time needed'))
+                print(table.get_string(sortby = 'Time needed (minutes)'))
                 print("")
             elif view_input.lower() in {'3', 'complete by', 'c'}:
                 print(table.get_string(sortby = 'Complete by'))     
@@ -82,8 +82,8 @@ while True:
                     if named_task.values[0] == task.values[0]:
                         name, duration, due_date, year, month, day = change_task(
                             "\nA task with this name already exists. \nPlease input a new name: ",
-                            "Time needed: ",
-                            "Complete by (D/M/Y): ")
+                            "Time needed (HH:MM): ",
+                            "Complete by (DD/MM/YYYY): ")
                         named_task.values = (name, duration, year, month, day)
                         i = 0
                 if i == len(task_list):
@@ -94,7 +94,7 @@ while True:
             write_pickle(task_list)
    
             # Confirm to user that task has been successfully created
-            print(f"\nThe following task has been successfully added! \nName: {task_list[-1].values[0]} \nTime needed: {task_list[-1].values[1]} minutes \nComplete by (year-month-date): {task_list[-1].values[2]} \n")
+            print(f"\nThe following task has been successfully added! \nName: {task_list[-1].values[0]} \nTime needed (minutes): {task_list[-1].values[1]} minutes \nComplete by (year-month-date): {task_list[-1].values[2]} \n")
 
             # Prompt user for next step
             add_input = loop_page('add')
@@ -115,12 +115,11 @@ while True:
                 if i.values[0] == edit_name:
                     name_exists = True
                     # Show details of task to be edited 
-                    print(f"You are editing: \nName: {i.values[0]} \nDuration: {i.values [1]}: \nComplete by (Y-M-D): {i.values[2]} \n")
+                    print(f"You are editing: \nName: {i.values[0]} \nTime needed (minutes): {i.values [1]}: \nComplete by (Y-M-D): {i.values[2]} \n")
                     name, duration, due_date, year, month, day = change_task(
                         "What would you like the new name to be? ",
                         "What is the new estimated time to complete the task? Please input in HH:MM format. ",
-                        "When is the new completion date? Please input in DD/MM/YYYY format. "
-                        )
+                        "When is the new completion date? Please input in DD/MM/YYYY format. ")
                     i.values = (name, duration, year, month, day)
 
                     # Check the name is unique
@@ -134,12 +133,12 @@ while True:
                         if counter == 2:
                             name, duration, due_date, year, month, day = change_task(
                                 "\nA task with this name already exists. \nPlease input a new name: ",
-                                "Time needed: ",
-                                "Complete by (D/M/Y): ")
+                                "Time needed (HH:MM): ",
+                                "Complete by (DD/MM/YYYY): ")
                             i.values = (name, duration, year, month, day)
 
                     # Confirms edited details and pickles data
-                    print(f"\nYou have edited to: \nName: {i.values[0]} \nDuration: {i.values[1]} \nComplete by (Y-M-D): {i.values[2]}")
+                    print(f"\nYou have edited to: \nName: {i.values[0]} \nTime needed (minutes): {i.values[1]} \nComplete by (Y-M-D): {i.values[2]}")
                     write_pickle(task_list)
                     break
             if not name_exists:
@@ -164,7 +163,7 @@ while True:
                 if i.values[0] == delete_name:
                     name_exists = True
                     # Shows details of task and confirms with user whether to delete
-                    print(f"You are deleting: \nName: {i.values[0]} \nDuration: {i.values [1]}: \nComplete by (Y-M-D): {i.values[2]} \n")
+                    print(f"You are deleting: \nName: {i.values[0]} \n Time needed (minutes): {i.values [1]}: \nComplete by (Y-M-D): {i.values[2]} \n")
                     while delete_input != 'no':
                         try:
                             delete_input = input("Are you sure you want to delete? ")
@@ -202,7 +201,7 @@ while True:
                 if i.values[0] == complete_name:
                     name_exists = True
                     # Confirm task to be completed
-                    print(f"You are completing: \nName: {i.values[0]} \nDuration: {i.values [1]}: \nComplete by (Y-M-D): {i.values[2]} \n")
+                    print(f"You are completing: \nName: {i.values[0]} \nTime needed (minutes): {i.values [1]}: \nComplete by (Y-M-D): {i.values[2]} \n")
                     while complete_input != 'no':
                         try:
                             complete_input = input("Is this the right task? ")
