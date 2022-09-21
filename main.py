@@ -172,9 +172,7 @@ while True:
                             if complete_input.lower() in {"y", "yes"}:
                                 input(f"You have completed the task '{i.values[0]}'! Press enter for a bigger message.")
                                 tprint("Congratulations", font = "dancingfont")
-                                tprint(f"{i.values[0]}", font = "rnd-large")
-                                print("has been completed!")
-
+                                tprint(f"{i.values[0]} has been completed!", font = "rnd-large")
                                 task_list.remove(i)
                                 complete_input = 'no'
                             elif complete_input.lower() in {"n", "no"}:
