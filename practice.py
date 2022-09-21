@@ -126,4 +126,5 @@ pickle_out.close()
 list = [name1, name2, name3, name4]
 print(list)
 
-write_pickle(None)
+with open("tasks.pkl", "wb") as file:
+    pass

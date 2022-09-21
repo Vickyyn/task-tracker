@@ -6,7 +6,7 @@ import pickle
 
 while True:
     # Welcome /  Main Menu
-    main_response = input("Welcome to Task Tracker! \nToday's date is "
+    main_response = input("\nWelcome to Task Tracker! \nToday's date is "
     f"{datetime.datetime.now().date()} \n\nPlease select from options below: \n "
     "1. View tasks \n 2. Add a new task \n 3. Edit or delete a task \n "
     "4. Complete a task \n 5. Exit \n\n")
@@ -16,9 +16,11 @@ while True:
         # Sort tasks by variables
         task_list = read_pickle()
 
-        print(task_list)
-        for list in task_list:
-            for task in list:
+        if not task_list:
+            none_input = input("You have no tasks currently. Please add a task. Press enter to return.\n")
+        else:
+            print(task_list)
+            for task in task_list:
                 print(task.values)
 
     elif main_response.lower() in {"2", "a", "add"}:

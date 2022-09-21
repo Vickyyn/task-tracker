@@ -103,15 +103,23 @@ def loop_page(page):
             raise SystemExit
         print(f"Please enter '{page}', 'back', or 'quit'")
 
+# def read_pickle():
+#     with open ('tasks.pkl', 'rb') as file:
+#         task_list = []
+#         while True:
+#             try:
+#                 a = pickle.load(file)
+#                 task_list.append(a)
+#             except EOFError:
+#                 break
+#     return task_list
+
 def read_pickle():
     with open ('tasks.pkl', 'rb') as file:
-        task_list = []
-        while True:
-            try:
-                a = pickle.load(file)
-                task_list.append(a)
-            except EOFError:
-                break
+        try:
+            task_list = pickle.load(file)
+        except EOFError:
+            task_list = []
     return task_list
 
 def append_pickle(data):
