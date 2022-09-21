@@ -136,7 +136,7 @@ while True:
                 if i.values[0] == edit_name:
                     name_exists = True
                     # Show details of task to be edited 
-                    print(f"You are editing: \nName: {i.values[0]} \nTime needed (minutes): {i.values [1]}: \nComplete by (Y-M-D): {i.values[2]} \n")
+                    print(f"You are editing: \nName: {i.values[0]} \nTime needed (minutes): {i.values [1]} \nComplete by (Y-M-D): {i.values[2]} \n")
                     name, duration, due_date, year, month, day = change_task(
                         "What would you like the new name to be? ",
                         "What is the new estimated time to complete the task? Please input in HH:MM format. ",

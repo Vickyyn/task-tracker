@@ -73,11 +73,30 @@ def date_fx(prompt):
             year = None
     return due_date, year, month, day
 
+def name_fx(prompt):
+    name = input(prompt)
+    while not name:
+        name = input("Task names cannot be blank! Please input a name: ")
+    return name
+
 def change_task(name_prompt, duration_prompt, date_prompt):
-    name = input(name_prompt)
+    name = name_fx(name_prompt)
     duration = duration_fx(duration_prompt)
     due_date, year, month, day = date_fx(date_prompt)
     return name, duration, due_date, year, month, day
+
+# def change_task_handle_name(name_prompt, duration_prompt, date_prompt):
+#     while True:
+#         try:
+#             name, duration, due_date, year, month, day = change_task(name_prompt, duration_prompt, date_prompt)
+#             if name == "":
+#                 raise ValueError("\nNOTE: Tasks must have a name! \n")
+#             else: 
+#                 return name, duration, due_date, year, month, day
+#         except ValueError as err:
+#             print(err)
+
+
 
 def loop_page(page):
     while True:
