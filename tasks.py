@@ -102,17 +102,6 @@ def loop_page(page):
             raise SystemExit
         print(f"Please enter '{page}', 'back', or 'quit'")
 
-# def read_pickle():
-#     with open ('tasks.pkl', 'rb') as file:
-#         task_list = []
-#         while True:
-#             try:
-#                 a = pickle.load(file)
-#                 task_list.append(a)
-#             except EOFError:
-#                 break
-#     return task_list
-
 def read_pickle():
     with open ('tasks.pkl', 'rb') as file:
         try:
@@ -121,15 +110,15 @@ def read_pickle():
             task_list = []
     return task_list
 
-def read_if_blank_pickle():
+def read_pickle_msg_if_blank():
     task_list = read_pickle()
     if not task_list:
         input("You have no tasks currently. Please add a task. Press enter to return.\n")
     return task_list
 
-def append_pickle(data):
-    with open("tasks.pkl", "ab") as file:
-        pickle.dump(data, file)
+# def append_pickle(data):
+#     with open("tasks.pkl", "ab") as file:
+#         pickle.dump(data, file)
 
 def write_pickle(task_list):
     with open("tasks.pkl", "wb") as file:
@@ -154,6 +143,3 @@ def change_name_if_repeat(named_task, task_list):
             break
     return named_task
 
-# test = Task("laundry", 35, 2000, 10, 3)
-# print(test.date)
-# print(test.values)
