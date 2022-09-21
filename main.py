@@ -222,24 +222,26 @@ while True:
                 if i.values[0] == complete_name:
                     name_exists = True
                     # Confirm task to be completed
-                    print(f"You are completing: \nName: {i.values[0]} \nTime needed (minutes): {i.values [1]}: \nComplete by (Y-M-D): {i.values[2]} \n")
+                    print(f"You are completing: \nName: {i.values[0]} \nTime needed (minutes): {i.values [1]} \nComplete by (Y-M-D): {i.values[2]} \n")
                     while complete_input != 'no':
                         try:
                             complete_input = input("Is this the right task? ")
                             if complete_input.lower() in {"y", "yes"}:
                                 # Complete task with bonus ASCII text art, remove task and pickle data
-                                input(f"You have completed the task '{i.values[0]}'! Press enter for a bigger message.")
+                                input(f"You have completed the task '{i.values[0]}'! Press enter for a bigger message. ")
+                                print("\n\n")
                                 tprint("Congratulations", font = "dancingfont")
                                 tprint(f"{i.values[0]} has been completed!", font = "rnd-large")
+                                print("\n\n")
                                 task_list.remove(i)
                                 write_pickle(task_list)   
                                 complete_input = 'no'
                             elif complete_input.lower() in {"n", "no"}:
                                 complete_input = 'no'
                             else:
-                                raise ValueError
-                        except ValueError:
-                            complete_input = input("Please enter 'yes' or 'no' ")
+                                raise ValueError("Please enter 'yes' or 'no' ")
+                        except ValueError as err:
+                            print(err)
             if not name_exists:
                 print("This task does not exist. Please try again. \n")
 

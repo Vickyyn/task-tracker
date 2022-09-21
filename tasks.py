@@ -85,19 +85,6 @@ def change_task(name_prompt, duration_prompt, date_prompt):
     due_date, year, month, day = date_fx(date_prompt)
     return name, duration, due_date, year, month, day
 
-# def change_task_handle_name(name_prompt, duration_prompt, date_prompt):
-#     while True:
-#         try:
-#             name, duration, due_date, year, month, day = change_task(name_prompt, duration_prompt, date_prompt)
-#             if name == "":
-#                 raise ValueError("\nNOTE: Tasks must have a name! \n")
-#             else: 
-#                 return name, duration, due_date, year, month, day
-#         except ValueError as err:
-#             print(err)
-
-
-
 def loop_page(page):
     while True:
         page_input = input(f"Enter '{page.lower()}' to {page.lower()} another task, 'back' to return to main menu, or 'quit' to exit. ")
