@@ -122,6 +122,12 @@ def read_pickle():
             task_list = []
     return task_list
 
+def read_blank_pickle():
+    task_list = read_pickle()
+    if not task_list:
+        input("You have no tasks currently. Please add a task. Press enter to return.\n")
+    return task_list
+
 def append_pickle(data):
     with open("tasks.pkl", "ab") as file:
         pickle.dump(data, file)

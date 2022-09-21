@@ -14,10 +14,10 @@ while True:
     if main_response.lower() in {"1", "v", "view"}:
         # View tasks
         # Sort tasks by variables
-        task_list = read_pickle()
+        task_list = read_blank_pickle()
 
         if not task_list:
-            none_input = input("You have no tasks currently. Please add a task. Press enter to return.\n")
+            continue
         else:
             print(task_list)
             for task in task_list:
@@ -70,26 +70,27 @@ while True:
         edit_input = True
         while edit_input:
 
-            task_list = read_pickle()
-
-            if not len(task_list):
-                print("There are no tasks at the moment! Please add a task first.")
+            task_list = read_blank_pickle()
+            if not task_list:
                 break
+
+            # if not task_list:
+            #     none_input = input("You have no tasks currently. Please add a task. Press enter to return.\n")
+            #     break
 
             edit_name = input("Please enter the name of the task you would like to edit: ")            
 
-            for list in task_list:
-                for i in list:
-                    if i.values[0] == edit_name:
-                        print(f"You are editing: \nName: {i.values[0]} \nDuration: {i.values [1]}: \nComplete by (Y-M-D): {i.values[2]} \n")
-                        name, duration, due_date, year, month, day = change_task(
-                            "What would you like the new name to be? ",
-                            "What is the new estimated time to complete the task? Please input in HH:MM format. ",
-                            "When is the new completion date? Please input in DD/MM/YYYY format. "
-                            )
-                        i.values = (name, duration, year, month, day)
-                        print(f"\nYou have edited {i.values[0]} to: \nDuration: {i.values[1]} \nComplete by (Y-M-D): {i.values[2]}")
-                        break
+            for i in task_list:
+                if i.values[0] == edit_name:
+                    print(f"You are editing: \nName: {i.values[0]} \nDuration: {i.values [1]}: \nComplete by (Y-M-D): {i.values[2]} \n")
+                    name, duration, due_date, year, month, day = change_task(
+                        "What would you like the new name to be? ",
+                        "What is the new estimated time to complete the task? Please input in HH:MM format. ",
+                        "When is the new completion date? Please input in DD/MM/YYYY format. "
+                        )
+                    i.values = (name, duration, year, month, day)
+                    print(f"\nYou have edited {i.values[0]} to: \nDuration: {i.values[1]} \nComplete by (Y-M-D): {i.values[2]}")
+                    break
 
             write_pickle(task_list)
 
