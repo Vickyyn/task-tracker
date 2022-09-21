@@ -85,10 +85,11 @@ while True:
             if not task_list:
                 break
 
-            edit_name = input("Please enter the name of the task you would like to edit: ")            
-
+            edit_name = input("Please enter the name of the task you would like to edit: ")  
+            name_exists = False
             for i in task_list:
                 if i.values[0] == edit_name:
+                    name_exists = True
                     print(f"You are editing: \nName: {i.values[0]} \nDuration: {i.values [1]}: \nComplete by (Y-M-D): {i.values[2]} \n")
                     name, duration, due_date, year, month, day = change_task(
                         "What would you like the new name to be? ",
@@ -96,6 +97,7 @@ while True:
                         "When is the new completion date? Please input in DD/MM/YYYY format. "
                         )
                     i.values = (name, duration, year, month, day)
+
                     while True:
                         counter = 0
                         for task in task_list:
@@ -112,14 +114,15 @@ while True:
                             i.values = (name, duration, year, month, day)
 
                     print(f"\nYou have edited to: \nName: {i.values[0]} \nDuration: {i.values[1]} \nComplete by (Y-M-D): {i.values[2]}")
+                    write_pickle(task_list)
                     break
 
-            write_pickle(task_list)
+            if not name_exists:
+                print("This task does not exist. Please try again. \n")
 
             # Prompt next step from user
             edit_input = loop_page('edit')
         
-
 
     elif main_response.lower() in {"4", "d", "delete"}:
      # Delete a task
@@ -130,10 +133,12 @@ while True:
             if not task_list:
                 break
 
-            delete_name = input("Please enter the name of the task you would like to delete: ")            
+            delete_name = input("Please enter the name of the task you would like to delete: ")  
 
+            name_exists = False
             for i in task_list:
                 if i.values[0] == delete_name:
+                    name_exists = True
                     print(f"You are deleting: \nName: {i.values[0]} \nDuration: {i.values [1]}: \nComplete by (Y-M-D): {i.values[2]} \n")
                     while delete_input != 'no':
                         try:
@@ -148,8 +153,10 @@ while True:
                                 raise ValueError
                         except ValueError:
                             delete_input = input("Please enter 'yes' or 'no' ")
-                
-            write_pickle(task_list)   
+                    write_pickle(task_list)   
+
+            if not name_exists:
+                print("This task does not exist. Please try again. \n")
 
             delete_input = loop_page('delete')
 
