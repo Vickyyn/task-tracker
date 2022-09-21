@@ -14,7 +14,12 @@ while True:
     if main_response.lower() in {"1", "v", "view"}:
         # View tasks
         # Sort tasks by variables
-        print(main_response.lower())
+        task_list = read_pickle()
+
+        print(task_list)
+        for list in task_list:
+            for task in list:
+                print(task.values)
 
     elif main_response.lower() in {"2", "a", "add"}:
         # Create pickle file if it does not already exist
@@ -36,23 +41,13 @@ while True:
             name = Task(name, duration, year, month, day)
 
             # Pickle task
-            with open("tasks.pickle", "ab") as file:
-                pickle.dump(name, file)
-            # with open("tasks.pkl", "rb") as file:
-            #     try: 
-            #         task_list = pickle.load(file)
-            #     except EOFError:
-            #         task_list = []
-
-            # task_list.append(name)
-
-            # with open("tasks.pkl", "wb") as file:
-            #     pickle.dump(task_list, file)
-            # print(task_list)
-
+            task_list = read_pickle()
+            task_list.append(name)
+            write_pickle(task_list)
+   
             # Confirm to user that task has been successfully created
             # print(f"\nThe following task has been successfully added! \nName: {name} \nTime needed: {duration} minutes \nComplete by: {datetime.datetime(year, month, day).date()}")
-            print(f"\nThe following task has been successfully added! \nName: {name.values[0]} \nTime needed: {name.values[1]} minutes \nComplete by (year-month-date): {name.values[2]} \n")
+            print(f"\nThe following task has been successfully added! \nName: {task_list[-1].values[0]} \nTime needed: {name.values[1]} minutes \nComplete by (year-month-date): {name.values[2]} \n")
 
             # Loop until a correct next step input is received
             while True:
@@ -70,28 +65,39 @@ while True:
             
     elif main_response.lower() in {"3", "e", "edit", "d", "delete"}:
         # Edit or delete a task
-        # Edit
-        edit_name = input("Please enter the name of the task you would like to edit: ")
+        edit_input = True
+        while edit_input:
 
-        with open ('tasks.pkl', 'rb') as file:
-            while True:
-                try:
-                    a = pickle.load(file)
-                except EOFError:
-                    print("Nothing with this name was found. Please try again. ")
-                    break
-                task_list.append(a)
-                else:
-                    if a.values[0] == edit_name:
-                        print(f"You are editing: \nName: {a.values[0]} \nDuration: {a.values [1]}: \nComplete by (Y-M-D): {a.values[2]}")
+            task_list = read_pickle()
+
+            if not len(task_list):
+                print("There are no tasks at the moment! Please add a task first.")
+                break
+
+            edit_name = input("Please enter the name of the task you would like to edit: ")            
+
+            for list in task_list:
+                for i in list:
+                    if i.values[0] == edit_name:
+                        print(f"You are editing: \nName: {i.values[0]} \nDuration: {i.values [1]}: \nComplete by (Y-M-D): {i.values[2]} \n")
                         name, duration, due_date, year, month, day = change_task(
                             "What would you like the new name to be? ",
                             "What is the new estimated time to complete the task? Please input in HH:MM format. ",
                             "When is the new completion date? Please input in DD/MM/YYYY format. "
                             )
-                        a.values = (name, duration, year, month, day)
-                        print(f"You have edited {a.values[0]} to: \nDuration: {a.values[1]} \nComplete by (Y-M-D): {a.values[2]}")
+                        i.values = (name, duration, year, month, day)
+                        print(f"\nYou have edited {i.values[0]} to: \nDuration: {i.values[1]} \nComplete by (Y-M-D): {i.values[2]}")
                         break
+
+            write_pickle(task_list)
+
+            # Prompt next step from user
+            edit_input = loop_page('edit')
+        
+
+
+
+
 
     elif main_response.lower() in {"5", "exit"}:
         raise SystemExit

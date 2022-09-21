@@ -1,4 +1,5 @@
 import datetime
+import pickle
 
 class RangeError(Exception):
     pass
@@ -76,18 +77,50 @@ def change_task(name_prompt, duration_prompt, date_prompt):
     due_date, year, month, day = date_fx(date_prompt)
     return name, duration, due_date, year, month, day
 
-def add_task():
-    change_task(
-        "You are adding a new task! \nWhat is the name of the task? ",
-        "Approximately how much time does it take to do the task? Please input in HH:MM format. ",
-        "When does the task need to be completed by? Please input in DD/MM/YYYY format. ")
+# def add_task():
+#     change_task(
+#         "You are adding a new task! \nWhat is the name of the task? ",
+#         "Approximately how much time does it take to do the task? Please input in HH:MM format. ",
+#         "When does the task need to be completed by? Please input in DD/MM/YYYY format. ")
     
-def edit_task():
-    change_task(
-        "What would you like the new name to be? ",
-        "What is the new estimated time to complete the task? Please input in HH:MM format. ",
-        "When is the new completion date? Please input in DD/MM/YYYY format. "
-    )
+# def edit_task():
+#     change_task(
+#         "What would you like the new name to be? ",
+#         "What is the new estimated time to complete the task? Please input in HH:MM format. ",
+#         "When is the new completion date? Please input in DD/MM/YYYY format. "
+#     )
+
+def loop_page(page):
+    while True:
+        page_input = input(f"Enter '{page}' to {page} another task, 'back' to return to main menu, or 'quit' to exit. ")
+        if page_input.lower() == page:
+            print("")
+            break
+        if page_input.lower() == "back":
+            print("")
+            return False
+        if page_input.lower() == "quit":
+            raise SystemExit
+        print(f"Please enter '{page}', 'back', or 'quit'")
+
+def read_pickle():
+    with open ('tasks.pkl', 'rb') as file:
+        task_list = []
+        while True:
+            try:
+                a = pickle.load(file)
+                task_list.append(a)
+            except EOFError:
+                break
+    return task_list
+
+def append_pickle(data):
+    with open("tasks.pkl", "ab") as file:
+        pickle.dump(data, file)
+
+def write_pickle(task_list):
+    with open("tasks.pkl", "wb") as file:
+        pickle.dump(task_list, file)
 
 
 # test = Task("laundry", 35, 2000, 10, 3)

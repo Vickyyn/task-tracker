@@ -106,7 +106,6 @@
 # print(Test1.values)
 
 from tasks import *
-import pickle
 
 # name = input("Name here: ")
 # name = Task(name, 5, 3, 2, 1)
@@ -116,9 +115,15 @@ name1 = Task('shower', 5, 4, 3, 2)
 name2 = Task('leggings', 5, 4, 3, 2)
 name3 = Task('blanket', 5, 4, 3, 2)
 name4 = Task('sleep', 5, 4, 3, 2)
-pickle_out = open('tasks.pkl', 'ab')
+pickle_out = open('tasks.pkl', 'wb')
+pickle.dump(name1, pickle_out)
+pickle.dump(name2, pickle_out)
+pickle.dump(name3, pickle_out)
+pickle.dump(name4, pickle_out)
 pickle.dump(name1, pickle_out)
 pickle_out.close()
 
 list = [name1, name2, name3, name4]
 print(list)
+
+write_pickle(None)
