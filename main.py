@@ -184,7 +184,7 @@ while True:
                 if i.values[0] == delete_name:
                     name_exists = True
                     # Shows details of task and confirms with user whether to delete
-                    print(f"You are deleting: \nName: {i.values[0]} \n Time needed (minutes): {i.values [1]}: \nComplete by (Y-M-D): {i.values[2]} \n")
+                    print(f"You are deleting: \nName: {i.values[0]} \nTime needed (minutes): {i.values [1]}: \nComplete by (Y-M-D): {i.values[2]} \n")
                     while delete_input != 'no':
                         try:
                             delete_input = input("Are you sure you want to delete? ")
@@ -197,9 +197,9 @@ while True:
                             elif delete_input.lower() in {"n", "no"}:
                                 delete_input = 'no'
                             else:
-                                raise ValueError
-                        except ValueError:
-                            delete_input = input("Please enter 'yes' or 'no' ")
+                                raise ValueError("Please enter 'yes' or 'no'")
+                        except ValueError as err:
+                            print(err)
             if not name_exists:
                 print("This task does not exist. Please try again. \n")
 
