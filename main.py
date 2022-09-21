@@ -6,6 +6,13 @@ from prettytable import PrettyTable
 # Fun title
 tprint("Task Tracker", font = 'modular')
 
+# Create pickle file if it does not already exist (the first time program is run)
+try:
+    with open("tasks.pkl", "x") as file:
+        pass 
+except FileExistsError:
+    pass 
+
 while True:
     # Welcome /  Main Menu
     main_response = input("\nWelcome to Task Tracker! \nToday's date is "
@@ -33,35 +40,49 @@ while True:
             print("")
 
             # View tasks via sorting by different variables
-            view_input = input(
-                "You can view tasks by name, time needed, complete by, or the original creation time of the task prior to any editing. "
-                "\nPlease select from the list below: "
-                "\n 1. Order by Name \n 2. Order by Time needed \n 3. Order by Complete by date \n 4. Order by creation time (Default) \n")
-            if view_input.lower() in {'1', 'name', 'n'}:
-                print(table.get_string(sortby = 'Name'))
-                print("")
-            elif view_input.lower() in {'2', 'time needed', 't'}:
-                print(table.get_string(sortby = 'Time needed (minutes)'))
-                print("")
-            elif view_input.lower() in {'3', 'complete by', 'c'}:
-                print(table.get_string(sortby = 'Complete by'))     
-                print("")     
-            elif view_input.lower() in {'4', 'd'}:
-                print(table)      
-                print("")                  
+            while True:
+                try:
+                    view_input = input(
+                        "You can order tasks by name, time needed, complete by date, or the original creation time of the task prior to any editing. "
+                        "\nPlease select from the list below: "
+                        "\n 1. Order by Name \n 2. Order by Time needed \n 3. Order by Complete by date \n 4. Order by creation time (Default) \n")
+                    if view_input.lower() in {'1', 'name', 'n'}:
+                        print(table.get_string(sortby = 'Name'))
+                        print("")
+                        break
+                    elif view_input.lower() in {'2', 'time needed', 't'}:
+                        print(table.get_string(sortby = 'Time needed (minutes)'))
+                        print("")
+                        break
+                    elif view_input.lower() in {'3', 'complete by', 'c'}:
+                        print(table.get_string(sortby = 'Complete by'))     
+                        print("")
+                        break     
+                    elif view_input.lower() in {'4', 'd'}:
+                        print(table)      
+                        print("")
+                        break
+                    else:
+                        raise ValueError("\nNOTE: Please input '1', '2', '3', or '4'! \n")                  
+                except ValueError as err:
+                    print(err)
 
-            # Prompts user for next action they would like to take
-            view_input = loop_page('view')    
+            # Prompts user for next action they would like to take, unfortunately cannot use loop page function due to wording
+            while True:
+                view_input = input("Enter 'view' to return to default view page, 'back' to return to main menu, or 'quit' to exit. ")
+                if view_input == 'view':
+                    print("")
+                    break
+                if view_input == "back":
+                    print("")
+                    view_input = False
+                    break
+                if view_input == "quit":
+                    raise SystemExit
+                print("Please enter 'view', 'back', or 'quit'")
 
     # Add tasks
     elif main_response.lower() in {"2", "a", "add"}:
-        # Create pickle file if it does not already exist (the first time program is run)
-        try:
-            with open("tasks.pkl", "x") as file:
-                pass 
-        except FileExistsError:
-            pass 
-
         add_input = True
         while add_input:
             # Create task

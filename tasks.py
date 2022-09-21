@@ -32,7 +32,7 @@ class Task:
 def duration_fx(prompt):
     hour = None
     minute = None
-    while not hour and not minute:
+    while not minute:
         try:
             user_input = input(prompt)
             hour, minute = map(int, user_input.split(':'))
@@ -43,14 +43,13 @@ def duration_fx(prompt):
             minute = None
         except ValueError:
             print("You must enter two integers, separated by a colon")
-        
     return hour*60 + minute
 
 def date_fx(prompt):
     day = None
     month = None
     year = None
-    while not day and not month and not year:
+    while not (day and month and year):
         try:
             user_input = input(prompt)
             day, month, year = map(int, user_input.split('/'))
