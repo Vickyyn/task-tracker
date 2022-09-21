@@ -2,7 +2,11 @@
 
 # Imports including datetime from tasks file
 from tasks import *
-import pickle
+from art import *
+
+tprint("Task Tracker", font = 'modular')
+
+# cute fonts 'block' 'modular' 'dancingfont' 'funface' 'funfaces'
 
 while True:
     # Welcome /  Main Menu
@@ -111,7 +115,7 @@ while True:
                     break
 
             write_pickle(task_list)
-            
+
             # Prompt next step from user
             edit_input = loop_page('edit')
         
@@ -136,7 +140,6 @@ while True:
                             delete_input = input("Are you sure you want to delete? ")
                             if delete_input.lower() in {"y", "yes"}:
                                 task_list.remove(i)
-                                print(task_list)
                                 print("Deletion successful \n") 
                                 delete_input = 'no'
                             elif delete_input.lower() in {"n", "no"}:
@@ -150,6 +153,40 @@ while True:
 
             delete_input = loop_page('delete')
 
+    elif main_response.lower() in {"5", "c", "complete"}:
+        complete_input = True
+        while complete_input:
+
+            task_list = read_blank_pickle()
+            if not task_list:
+                break
+
+            complete_name = input("Please enter the name of the task you would like to complete: ")            
+
+            for i in task_list:
+                if i.values[0] == complete_name:
+                    print(f"You are completing: \nName: {i.values[0]} \nDuration: {i.values [1]}: \nComplete by (Y-M-D): {i.values[2]} \n")
+                    while complete_input != 'no':
+                        try:
+                            complete_input = input("Is this the right task? ")
+                            if complete_input.lower() in {"y", "yes"}:
+                                input(f"You have completed the task '{i.values[0]}'! Press enter for a bigger message.")
+                                tprint("Congratulations", font = "dancingfont")
+                                tprint(f"{i.values[0]}", font = "rnd-large")
+                                print("has been completed!")
+
+                                task_list.remove(i)
+                                complete_input = 'no'
+                            elif complete_input.lower() in {"n", "no"}:
+                                complete_input = 'no'
+                            else:
+                                raise ValueError
+                        except ValueError:
+                            complete_input = input("Please enter 'yes' or 'no' ")
+                
+            write_pickle(task_list)   
+
+            complete_input = loop_page('complete')            
 
 
 
