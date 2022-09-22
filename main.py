@@ -223,4 +223,4 @@ while True:
         raise SystemExit
 
     else:
-        print("NOTE: Please enter a number from 1 to 6")
+        input("NOTE: Please enter a number from 1 to 6. Press enter to continue. ")

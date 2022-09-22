@@ -149,7 +149,7 @@ def sort_tasks(table):
                     "editing. \nPlease select from the list below: "
                     "\n 1. Order by Name \n 2. Order by Time needed "
                     "\n 3. Order by Complete by date "
-                    "\n 4. Order by creation time (Default) \n")
+                    "\n 4. Order by creation time (Default) \n\n")
             if view_input.lower() in {'1', 'name', 'n'}:
                 print(table.get_string(sortby = 'Name'))
                 print("")
@@ -168,7 +168,7 @@ def sort_tasks(table):
                 break
             else:
                 raise ValueError("\nNOTE: Please input '1', '2', '3', "
-                    "or '4'! \n")                  
+                    "or '4'! Please enter to continue. ")                  
         except ValueError as err:
-            print(err) 
+            input(err) 
 
