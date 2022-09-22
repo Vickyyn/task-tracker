@@ -16,9 +16,9 @@ except FileExistsError:
 while True:
     # Welcome /  Main Menu
     main_response = input("\nWelcome to Task Tracker! \nToday's date is "
-    f"{datetime.datetime.now().date()} \n\nPlease select from options below: \n "
-    "1. View tasks \n 2. Add tasks \n 3. Edit tasks \n 4. Delete tasks \n "
-    "5. Complete tasks \n 6. Exit \n\n")
+        f"{datetime.datetime.now().date()} \n\nPlease select from options "
+        "below: \n 1. View tasks \n 2. Add tasks \n 3. Edit tasks \n 4. "
+        "Delete tasks \n 5. Complete tasks \n 6. Exit \n\n")
 
     # View and sort tasks
     if main_response.lower() in {"1", "v", "view"}:
@@ -43,7 +43,8 @@ while True:
 
             # Prompts user for next action they would like to take, unfortunately cannot use loop page function due to wording
             while True:
-                view_input = input("Enter 'view' to return to default view page, 'back' to return to main menu, or 'quit' to exit. ")
+                view_input = input("Enter 'view' to return to default view "
+                    "page, 'back' to return to main menu, or 'quit' to exit. ")
                 if view_input == 'view':
                     print("")
                     break
@@ -62,14 +63,17 @@ while True:
             # Create task
             name, duration, due_date, year, month, day = change_task(
                 "You are adding a new task! \nWhat is the name of the task? ",
-                "Approximately how much time does it take to do the task? Please input in HH:MM format. ",
-                "When does the task need to be completed by? Please input in DD/MM/YYYY format. ")
+                "Approximately how much time does it take to do the task? "
+                    "Please input in HH:MM format. ",
+                "When does the task need to be completed by? Please input in "
+                    "DD/MM/YYYY format. ")
             named_task = Task(name, duration, year, month, day)
 
             # Unpickle data
             task_list = read_pickle()
 
-            # Ensure new task name is unique, and subsequent name attempts are also unique
+            # Ensure new task name is unique, and subsequent name attempts 
+                # are also unique
             while True:
                 i = 0
                 for task in task_list:
@@ -85,7 +89,10 @@ while True:
             write_pickle(task_list)
    
             # Confirm to user that task has been successfully created
-            print(f"\nThe following task has been successfully added! \nName: {task_list[-1].values[0]} \nTime needed (minutes): {task_list[-1].values[1]} minutes \nComplete by (year-month-date): {task_list[-1].values[2]} \n")
+            print("\nThe following task has been successfully added! \nName:"
+                f" {task_list[-1].values[0]} \nTime needed (minutes):"
+                f" {task_list[-1].values[1]} minutes \nComplete by"
+                f" (year-month-date): {task_list[-1].values[2]} \n")
 
             # Prompt user for next step
             add_input = loop_page('add')
@@ -100,13 +107,16 @@ while True:
                 break
 
             # Edit task whilst checking the task exists, and that the new name is unique
-            edit_name = input("Please enter the name of the task you would like to edit: ")  
+            edit_name = input("Please enter the name of the task you would "
+                "like to edit: ")  
             name_exists = False
             for i in task_list:
                 if i.values[0] == edit_name:
                     name_exists = True
                     # Show details of task to be edited 
-                    print(f"You are editing: \nName: {i.values[0]} \nTime needed (minutes): {i.values [1]} \nComplete by (Y-M-D): {i.values[2]} \n")
+                    print(f"You are editing: \nName: {i.values[0]} \n"
+                        f"Time needed (minutes): {i.values [1]} \n"
+                        f"Complete by (Y-M-D): {i.values[2]} \n")
                     
                     i.edit_self()
 
@@ -122,7 +132,9 @@ while True:
                             i.edit_duplicate()
 
                     # Confirms edited details and pickles data
-                    print(f"\nYou have edited to: \nName: {i.values[0]} \nTime needed (minutes): {i.values[1]} \nComplete by (Y-M-D): {i.values[2]}")
+                    print(f"\nYou have edited to: \nName: {i.values[0]} \n"
+                        f"Time needed (minutes): {i.values[1]} \n"
+                        f"Complete by (Y-M-D): {i.values[2]}")
                     write_pickle(task_list)
                     break
             if not name_exists:
@@ -141,16 +153,20 @@ while True:
                 break
 
             # Delete task whilst checking the task exists, with confirmation
-            delete_name = input("Please enter the name of the task you would like to delete: ")  
+            delete_name = input("Please enter the name of the task you would "
+                "like to delete: ")  
             name_exists = False
             for i in task_list:
                 if i.values[0] == delete_name:
                     name_exists = True
                     # Shows details of task and confirms with user whether to delete
-                    print(f"You are deleting: \nName: {i.values[0]} \nTime needed (minutes): {i.values [1]}: \nComplete by (Y-M-D): {i.values[2]} \n")
+                    print(f"You are deleting: \nName: {i.values[0]} \n"
+                        f"Time needed (minutes): {i.values [1]}: \n"
+                        f"Complete by (Y-M-D): {i.values[2]} \n")
                     while delete_input != 'no':
                         try:
-                            delete_input = input("Are you sure you want to delete? ")
+                            delete_input = input("Are you sure you want to "
+                                "delete? ")
                             if delete_input.lower() in {"y", "yes"}:
                                 # Delete task, print confirmation to user, and pickles data
                                 task_list.remove(i)
@@ -179,19 +195,23 @@ while True:
                 break
 
             # Complete task whilst checking the task exists
-            complete_name = input("Please enter the name of the task you would like to complete: ")  
+            complete_name = input("Please enter the name of the task you "
+                "would like to complete: ")  
             name_exists = False          
             for i in task_list:
                 if i.values[0] == complete_name:
                     name_exists = True
                     # Confirm task to be completed
-                    print(f"You are completing: \nName: {i.values[0]} \nTime needed (minutes): {i.values [1]} \nComplete by (Y-M-D): {i.values[2]} \n")
+                    print(f"You are completing: \nName: {i.values[0]} \n"
+                        f"Time needed (minutes): {i.values [1]} \n"
+                        f"Complete by (Y-M-D): {i.values[2]} \n")
                     while complete_input != 'no':
                         try:
                             complete_input = input("Is this the right task? ")
                             if complete_input.lower() in {"y", "yes"}:
                                 # Complete task with bonus ASCII text art, remove task and pickle data
-                                input(f"You have completed the task '{i.values[0]}'! Press enter for a bigger message. ")
+                                input(f"You have completed the task '{i.values[0]}'!"
+                                    " Press enter for a bigger message. ")
                                 print("\n\n")
                                 tprint("Congratulations", font = "dancingfont")
                                 tprint(f"{i.values[0]} has been completed!", font = "rnd-large")

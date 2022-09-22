@@ -2,6 +2,11 @@
 
 ## [Source control repository](https://github.com/Vickyyn/terminal-app)
 
+## Referenced sources:
+
+
+
+
 ## Code style guide
 PEP 8; reference chosen style guide appropriately 
 
