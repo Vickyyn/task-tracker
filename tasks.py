@@ -71,6 +71,9 @@ def duration_fx(prompt):
             print("You must enter two integers, separated by a colon")
     return hour*60 + minute
 
+def minute_calculator(hour, minute):
+    return hour*60 + minute
+
 def date_fx(prompt):
     day = None
     month = None

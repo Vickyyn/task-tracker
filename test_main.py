@@ -43,11 +43,3 @@ class TestEditMethod:
         assert test_task.values[1] == 60
         assert test_task.values[2] == datetime.date(2022, 9, 22)        
 
-    
-
-
-# https://github.com/flynnwebdev/python-inheritance-lesson/blob/main/exceptions.py
-
-# https://github.com/flynnwebdev/python-inheritance-lesson/blob/main/test_exceptions.py
-
-# https://pypi.org/project/pytest/
