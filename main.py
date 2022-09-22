@@ -214,7 +214,7 @@ while True:
                                     " Press enter for a bigger message. ")
                                 print("\n\n")
                                 tprint("Congratulations", font = "dancingfont")
-                                tprint(f"{i.values[0]} has been completed!", font = "rnd-large")
+                                tprint(f"{i.values[0]} has been completed!", font = "rnd-medium")
                                 print("\n\n")
                                 task_list.remove(i)
                                 write_pickle(task_list)   
