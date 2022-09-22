@@ -36,36 +36,10 @@ while True:
                 table.add_row([task.values[0], task.values[1], task.values[2]])
 
             # Print table at entry page for convenience
-            print(table)
-            print("")
+            print(f"{table}\n\n")
 
             # View tasks via sorting by different variables
-            while True:
-                try:
-                    view_input = input(
-                        "You can order tasks by name, time needed, complete by date, or the original creation time of the task prior to any editing. "
-                        "\nPlease select from the list below: "
-                        "\n 1. Order by Name \n 2. Order by Time needed \n 3. Order by Complete by date \n 4. Order by creation time (Default) \n")
-                    if view_input.lower() in {'1', 'name', 'n'}:
-                        print(table.get_string(sortby = 'Name'))
-                        print("")
-                        break
-                    elif view_input.lower() in {'2', 'time needed', 't'}:
-                        print(table.get_string(sortby = 'Time needed (minutes)'))
-                        print("")
-                        break
-                    elif view_input.lower() in {'3', 'complete by', 'c'}:
-                        print(table.get_string(sortby = 'Complete by'))     
-                        print("")
-                        break     
-                    elif view_input.lower() in {'4', 'd'}:
-                        print(table)      
-                        print("")
-                        break
-                    else:
-                        raise ValueError("\nNOTE: Please input '1', '2', '3', or '4'! \n")                  
-                except ValueError as err:
-                    print(err)
+            sort_tasks(table)
 
             # Prompts user for next action they would like to take, unfortunately cannot use loop page function due to wording
             while True:
@@ -101,11 +75,7 @@ while True:
                 for task in task_list:
                     i += 1
                     if named_task.values[0] == task.values[0]:
-                        name, duration, due_date, year, month, day = change_task(
-                            "\nA task with this name already exists. \nPlease input a new name: ",
-                            "Time needed (HH:MM): ",
-                            "Complete by (DD/MM/YYYY): ")
-                        named_task.values = (name, duration, year, month, day)
+                        named_task.edit_duplicate()
                         i = 0
                 if i == len(task_list):
                     break
@@ -137,11 +107,8 @@ while True:
                     name_exists = True
                     # Show details of task to be edited 
                     print(f"You are editing: \nName: {i.values[0]} \nTime needed (minutes): {i.values [1]} \nComplete by (Y-M-D): {i.values[2]} \n")
-                    name, duration, due_date, year, month, day = change_task(
-                        "What would you like the new name to be? ",
-                        "What is the new estimated time to complete the task? Please input in HH:MM format. ",
-                        "When is the new completion date? Please input in DD/MM/YYYY format. ")
-                    i.values = (name, duration, year, month, day)
+                    
+                    i.edit_self()
 
                     # Check the name is unique
                     while True:
@@ -152,11 +119,7 @@ while True:
                         if counter == 1:
                             break
                         if counter == 2:
-                            name, duration, due_date, year, month, day = change_task(
-                                "\nA task with this name already exists. \nPlease input a new name: ",
-                                "Time needed (HH:MM): ",
-                                "Complete by (DD/MM/YYYY): ")
-                            i.values = (name, duration, year, month, day)
+                            i.edit_duplicate()
 
                     # Confirms edited details and pickles data
                     print(f"\nYou have edited to: \nName: {i.values[0]} \nTime needed (minutes): {i.values[1]} \nComplete by (Y-M-D): {i.values[2]}")

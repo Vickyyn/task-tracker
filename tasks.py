@@ -4,12 +4,11 @@ import pickle
 class RangeError(Exception):
     pass
 
-class WordValueError(ValueError):
-    pass
-
 class SearchError(Exception):
     pass
 
+class WordValueError(ValueError):
+    pass
 
 class Task:
     def __init__(self, name, duration, year, month, day):
@@ -27,7 +26,21 @@ class Task:
         name, duration, year, month, day = value_tuple
         self.__name = name
         self.__duration = duration
-        self.__due_date = datetime.datetime(year, month, day).date()      
+        self.__due_date = datetime.datetime(year, month, day).date()   
+
+    def edit_self(self):
+        name, duration, due_date, year, month, day = change_task(
+            "What would you like the new name to be? ",
+            "What is the new estimated time to complete the task? Please input in HH:MM format. ",
+            "When is the new completion date? Please input in DD/MM/YYYY format. ")
+        self.values = (name, duration, year, month, day)
+
+    def edit_duplicate(self):
+        name, duration, due_date, year, month, day = change_task(
+            "\nA task with this name already exists. \nPlease input a new name: ",
+            "Time needed (HH:MM): ",
+            "Complete by (DD/MM/YYYY): ")
+        self.values = (name, duration, year, month, day)        
 
 def duration_fx(prompt):
     hour = None
@@ -115,4 +128,33 @@ def read_pickle_msg_if_blank():
 def write_pickle(task_list):
     with open("tasks.pkl", "wb") as file:
         pickle.dump(task_list, file)
+
+def sort_tasks(table):
+    while True:
+        try:
+            view_input = input(
+                "You can order tasks by name, time needed, complete by date, or the original creation time of the task prior to any editing. "
+                "\nPlease select from the list below: "
+                "\n 1. Order by Name \n 2. Order by Time needed \n 3. Order by Complete by date "
+                "\n 4. Order by creation time (Default) \n")
+            if view_input.lower() in {'1', 'name', 'n'}:
+                print(table.get_string(sortby = 'Name'))
+                print("")
+                break
+            elif view_input.lower() in {'2', 'time needed', 't'}:
+                print(table.get_string(sortby = 'Time needed (minutes)'))
+                print("")
+                break
+            elif view_input.lower() in {'3', 'complete by', 'c'}:
+                print(table.get_string(sortby = 'Complete by'))     
+                print("")
+                break     
+            elif view_input.lower() in {'4', 'd'}:
+                print(table)      
+                print("")
+                break
+            else:
+                raise ValueError("\nNOTE: Please input '1', '2', '3', or '4'! \n")                  
+        except ValueError as err:
+            print(err) 
 
