@@ -26,7 +26,13 @@ class Task:
         name, duration, year, month, day = value_tuple
         self.__name = name
         self.__duration = duration
-        self.__due_date = datetime.datetime(year, month, day).date()   
+        self.__due_date = datetime.datetime(year, month, day).date()
+
+    def print_confirmation(self, detail):
+        print(f"{detail} \n"
+            f"Name: {self.__name} \n"
+            f"Time needed (minutes): {self.__duration} \n"
+            f"Complete by (Y-M-D): {self.__due_date} \n")
 
     def edit_self(self):
         name, duration, due_date, year, month, day = change_task(

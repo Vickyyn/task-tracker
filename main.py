@@ -89,10 +89,7 @@ while True:
             write_pickle(task_list)
    
             # Confirm to user that task has been successfully created
-            print("\nThe following task has been successfully added! \nName:"
-                f" {task_list[-1].values[0]} \nTime needed (minutes):"
-                f" {task_list[-1].values[1]} minutes \nComplete by"
-                f" (year-month-date): {task_list[-1].values[2]} \n")
+            task_list[-1].print_confirmation("\nThe following task has been successfully added!")
 
             # Prompt user for next step
             add_input = loop_page('add')
@@ -113,11 +110,8 @@ while True:
             for i in task_list:
                 if i.values[0] == edit_name:
                     name_exists = True
-                    # Show details of task to be edited 
-                    print(f"You are editing: \nName: {i.values[0]} \n"
-                        f"Time needed (minutes): {i.values [1]} \n"
-                        f"Complete by (Y-M-D): {i.values[2]} \n")
-                    
+                    # Show details of task to be edited, and edits task
+                    i.print_confirmation("You are editing:")                    
                     i.edit_self()
 
                     # Check the name is unique
@@ -132,9 +126,7 @@ while True:
                             i.edit_duplicate()
 
                     # Confirms edited details and pickles data
-                    print(f"\nYou have edited to: \nName: {i.values[0]} \n"
-                        f"Time needed (minutes): {i.values[1]} \n"
-                        f"Complete by (Y-M-D): {i.values[2]}")
+                    i.print_confirmation("\nYou have edited to:")
                     write_pickle(task_list)
                     break
             if not name_exists:
@@ -160,9 +152,7 @@ while True:
                 if i.values[0] == delete_name:
                     name_exists = True
                     # Shows details of task and confirms with user whether to delete
-                    print(f"You are deleting: \nName: {i.values[0]} \n"
-                        f"Time needed (minutes): {i.values [1]}: \n"
-                        f"Complete by (Y-M-D): {i.values[2]} \n")
+                    i.print_confirmation("You are deleting:")
                     while delete_input != 'no':
                         try:
                             delete_input = input("Are you sure you want to "
@@ -202,9 +192,7 @@ while True:
                 if i.values[0] == complete_name:
                     name_exists = True
                     # Confirm task to be completed
-                    print(f"You are completing: \nName: {i.values[0]} \n"
-                        f"Time needed (minutes): {i.values [1]} \n"
-                        f"Complete by (Y-M-D): {i.values[2]} \n")
+                    i.print_confirmation("You are completing:")
                     while complete_input != 'no':
                         try:
                             complete_input = input("Is this the right task? ")
