@@ -16,15 +16,15 @@ except FileExistsError:
 while True:
     # Welcome /  Main Menu
     main_response = input("\nWelcome to Task Tracker! \nToday's date is "
-        f"{datetime.datetime.now().date()} \n\nPlease select from options "
-        "below: \n 1. View tasks \n 2. Add tasks \n 3. Edit tasks \n 4. "
+        f"{datetime.datetime.now().date()} \n\nPlease select from options"
+        " below: \n 1. View tasks \n 2. Add tasks \n 3. Edit tasks \n 4. "
         "Delete tasks \n 5. Complete tasks \n 6. Exit \n\n")
 
     # View and sort tasks
     if main_response.lower() in {"1", "v", "view"}:
         view_input = True
         while view_input: 
-            # Unpickles data, and if there is no data then prompts user to add data, and exits from this selection
+            # Unpickles data. If no data then prompt to add and exit
             task_list = read_pickle_msg_if_blank()
             if not task_list:
                 break
@@ -41,7 +41,8 @@ while True:
             # View tasks via sorting by different variables
             sort_tasks(table)
 
-            # Prompts user for next action they would like to take, unfortunately cannot use loop page function due to wording
+            # Prompts user for next action they would like to take
+            # Different wording to loop function
             while True:
                 view_input = input("Enter 'view' to return to default view "
                     "page, 'back' to return to main menu, or 'quit' to exit. ")
@@ -87,9 +88,10 @@ while True:
             # Update and pickle data
             task_list.append(named_task)
             write_pickle(task_list)
-   
+
             # Confirm to user that task has been successfully created
-            task_list[-1].print_confirmation("\nThe following task has been successfully added!")
+            task_list[-1].print_confirmation("\nThe following task has been"
+                " successfully added!")
 
             # Prompt user for next step
             add_input = loop_page('add')
@@ -98,14 +100,14 @@ while True:
     elif main_response.lower() in {"3", "e", "edit"}:
         edit_input = True
         while edit_input:
-            # Unpickles data, and if there is no data then prompts user to add data, and exits from this selection
+            # Unpickles data. If no data then prompt to add and exit
             task_list = read_pickle_msg_if_blank()
             if not task_list:
                 break
 
-            # Edit task whilst checking the task exists, and that the new name is unique
             edit_name = input("Please enter the name of the task you would "
                 "like to edit: ")  
+            # Check the name exists
             name_exists = False
             for i in task_list:
                 if i.values[0] == edit_name:
@@ -139,27 +141,27 @@ while True:
     elif main_response.lower() in {"4", "d", "delete"}:
         delete_input = True
         while delete_input:
-            # Unpickles data, and if there is no data then prompts user to add data, and exits from this selection
+            # Unpickles data. If no data then prompt to add and exit 
             task_list = read_pickle_msg_if_blank()
             if not task_list:
                 break
 
-            # Delete task whilst checking the task exists, with confirmation
             delete_name = input("Please enter the name of the task you would "
                 "like to delete: ")  
+            # Check name exists
             name_exists = False
-            for i in task_list:
-                if i.values[0] == delete_name:
+            for task in task_list:
+                if task.values[0] == delete_name:
                     name_exists = True
-                    # Shows details of task and confirms with user whether to delete
-                    i.print_confirmation("You are deleting:")
+                    # Shows details of task 
+                    task.print_confirmation("You are deleting:")
                     while delete_input != 'no':
                         try:
                             delete_input = input("Are you sure you want to "
                                 "delete? ")
                             if delete_input.lower() in {"y", "yes"}:
-                                # Delete task, print confirmation to user, and pickles data
-                                task_list.remove(i)
+                                # Delete task, print confirmation, pickles data
+                                task_list.remove(task)
                                 print("Deletion successful \n") 
                                 write_pickle(task_list)   
                                 delete_input = 'no'
@@ -179,7 +181,7 @@ while True:
     elif main_response.lower() in {"5", "c", "complete"}:
         complete_input = True
         while complete_input:
-            # Unpickles data, and if there is no data then prompts user to add data, and exits from this selection
+            # Unpickles data. If no data then prompt to add and exit 
             task_list = read_pickle_msg_if_blank()
             if not task_list:
                 break
@@ -188,31 +190,28 @@ while True:
             complete_name = input("Please enter the name of the task you "
                 "would like to complete: ")  
             name_exists = False          
-            for i in task_list:
-                if i.values[0] == complete_name:
+            for task in task_list:
+                if task.values[0] == complete_name:
                     name_exists = True
                     # Confirm task to be completed
-                    i.print_confirmation("You are completing:")
+                    task.print_confirmation("You are completing:")
                     while complete_input != 'no':
-                        try:
-                            complete_input = input("Is this the right task? ")
-                            if complete_input.lower() in {"y", "yes"}:
-                                # Complete task with bonus ASCII text art, remove task and pickle data
-                                input(f"You have completed the task '{i.values[0]}'!"
-                                    " Press enter for a bigger message. ")
-                                print("\n\n")
-                                tprint("Congratulations", font = "dancingfont")
-                                tprint(f"{i.values[0]} has been completed!", font = "rnd-medium")
-                                print("\n\n")
-                                task_list.remove(i)
-                                write_pickle(task_list)   
-                                complete_input = 'no'
-                            elif complete_input.lower() in {"n", "no"}:
-                                complete_input = 'no'
-                            else:
-                                raise ValueError("Please enter 'yes' or 'no' ")
-                        except ValueError as err:
-                            print(err)
+                        complete_input = input("Is this the right task? ")
+                        if complete_input.lower() in {"y", "yes"}:
+                            # Complete task with bonus ASCII text art, remove task and pickle data
+                            input(f"You have completed the task '{task.values[0]}'!"
+                                " Press enter for a bigger message. ")
+                            print("\n\n")
+                            tprint("Congratulations", font = "dancingfont")
+                            tprint(f"{task.values[0]} has been completed!", font = "rnd-medium")
+                            print("\n\n")
+                            task_list.remove(task)
+                            write_pickle(task_list)   
+                            complete_input = 'no'
+                        elif complete_input.lower() in {"n", "no"}:
+                            complete_input = 'no'
+                        else:
+                            print("Please enter 'yes' or 'no' ")
             if not name_exists:
                 print("This task does not exist. Please try again. \n")
 
@@ -220,5 +219,8 @@ while True:
             complete_input = loop_page('complete')            
 
     # Quit option
-    elif main_response.lower() in {"6", "exit"}:
+    elif main_response.lower() in {"6", "exit", "quit"}:
         raise SystemExit
+
+    else:
+        print("NOTE: Please enter a number from 1 to 6")
