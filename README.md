@@ -69,10 +69,10 @@ Third party packages used include PrettyTable and Art. Steps for downloading the
 ### First time:
 1. Open Terminal
 2. Clone (or download) the files for the application:  
-   `git clone git@github.com:Vickyyn/terminal-app.git`  
+   `git clone git@github.com:Vickyyn/task-tracker.git`  
    Note: If you cannot do this step due to not having git installed, please follow this guide for installation: https://github.com/git-guides/install-git
 3. Navigate into the cloned/downloaded folder where the files are stored:  
-   `cd task-tracker`
+   `cd task-tracker/src`
 4. Create a virtual environment to store dependencies:  
    `python3 -m venv venv`
 5. Enter the virtual environment. You should see (venv) in front of your command line after this step:  
@@ -85,7 +85,7 @@ Third party packages used include PrettyTable and Art. Steps for downloading the
 ### Using the programme after first installation:
 1. Open Terminal
 2. Navigate into the task tracker folder:  
-   `cd task-tracker`
+   `cd task-tracker/src`
 3. Enter the virtual environment (to access the dependencies). You should see (venv) in front of your command line after this step:  
    `source venv/bin/activate`
 4. Run the programme:  
