@@ -3,7 +3,7 @@ Keep track of your tasks!
 
 --- 
 
-## [Source control repository](https://github.com/Vickyyn/terminal-app)
+## [Source control repository](https://github.com/Vickyyn/task-tracker)
 
 --- 
 
@@ -59,7 +59,8 @@ Krekel H, Oliveira B, Pfannschmidt R, Bruynooghe F, Laugher B, Bruhin F, and oth
 ## Help documentation 
 
 ### System/hardware requirements: 
-Python 3 (please see https://www.python.org/downloads/ for instructions to download)
+Python 3 (please see https://www.python.org/downloads/ to download)  
+
 
 ### Dependencies:
 Third party packages used include PrettyTable and Art. Steps for downloading these have been included in the installation instructions below.
@@ -67,19 +68,18 @@ Third party packages used include PrettyTable and Art. Steps for downloading the
 ### Installation instructions
 ### First time:
 1. Open Terminal
-2. Create a new folder for the application by running the following command line instruction:  
-   `mkdir task-tracker`
-3. Navigate into the folder:  
+2. Clone (or download) the files for the application:  
+   `git clone git@github.com:Vickyyn/terminal-app.git`  
+   Note: If you cannot do this step due to not having git installed, please follow this guide for installation: https://github.com/git-guides/install-git
+3. Navigate into the cloned/downloaded folder where the files are stored:  
    `cd task-tracker`
-4. Clone (or download) the files for the application:  
-   `git clone git@github.com:Vickyyn/terminal-app.git`
-5. Create a virtual environment to store dependencies:  
+4. Create a virtual environment to store dependencies:  
    `python3 -m venv venv`
-6. Enter the virtual environment. You should see (venv) in front of your command line after this step:  
+5. Enter the virtual environment. You should see (venv) in front of your command line after this step:  
    `source venv/bin/activate`
-7. Download dependencies (prettytable 3.4.1 and art 5.7, as well as a subdependency of wcwidth 0.2.5):  
+6. Download dependencies (prettytable 3.4.1 and art 5.7, as well as a subdependency of wcwidth 0.2.5):  
    `pip install -r requirements.txt`
-8. You are ready to go! Enter the following to run the programme:  
+7.  You are ready to go! Enter the following to run the programme:  
    `python3 main.py`
 
 ### Using the programme after first installation:
