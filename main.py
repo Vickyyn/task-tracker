@@ -4,6 +4,7 @@ from art import *
 from prettytable import PrettyTable
 
 # Fun title
+print("\n\n")
 tprint("Task Tracker", font = 'modular')
 
 # Create pickle file if it does not already exist (the first time program is run)
@@ -202,8 +203,9 @@ while True:
                             input(f"You have completed the task '{task.values[0]}'!"
                                 " Press enter for a bigger message. ")
                             print("\n\n")
-                            tprint("Congratulations", font = "dancingfont")
-                            tprint(f"{task.values[0]} has been completed!", font = "rnd-medium")
+                            tprint("Congratulations \n\n", font = "dancingfont")
+                            tprint(f"{task.values[0]}", font = "rnd-medium")
+                            print_random_complete_font()
                             print("\n\n")
                             task_list.remove(task)
                             write_pickle(task_list)   

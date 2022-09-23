@@ -1,5 +1,7 @@
 import datetime
 import pickle
+import random
+from art import *
 
 class RangeError(Exception):
     pass
@@ -175,3 +177,9 @@ def sort_tasks(table):
         except ValueError as err:
             input(err) 
 
+def print_random_complete_font():
+    fonttype = random.randrange(2)
+    if fonttype == 0:
+        tprint("has been completed!", font = "modular") 
+    else:
+        tprint("has been completed!", font = "funfaces")       
