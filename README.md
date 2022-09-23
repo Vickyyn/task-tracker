@@ -81,7 +81,7 @@ Third party packages used include PrettyTable and Art. Steps for downloading the
    `pip install -r requirements.txt`
 7.  You are ready to go! Enter the following to run the programme:  
    `python3 main.py`
-8. If you wish to continue using Terminal after closing the application, input the following to exit the virtual environment (the (venv) should disappear from the start of the command line):
+8. If you wish to continue using Terminal after closing the application, input the following to exit the virtual environment (the (venv) should disappear from the start of the command line):  
    `deactivate`
 
 ### Using the programme after first installation:
@@ -92,5 +92,5 @@ Third party packages used include PrettyTable and Art. Steps for downloading the
    `source venv/bin/activate`
 4. Run the programme:  
    `python3 main.py`
-5. If you wish to continue using Terminal after closing the application, input the following to exit the virtual environment (the (venv) should disappear from the start of the command line):
+5. If you wish to continue using Terminal after closing the application, input the following to exit the virtual environment (the (venv) should disappear from the start of the command line):  
    `deactivate`
