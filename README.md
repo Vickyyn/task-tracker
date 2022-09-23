@@ -45,47 +45,44 @@ Krekel H, Oliveira B, Pfannschmidt R, Bruynooghe F, Laugher B, Bruhin F, and oth
 - congratulation message with a small surprise
 - removal of task from list of tasks
 
+---
+
 ## Project management
 [Please see Trello board here.](https://trello.com/b/vgLKMc5B/terminal-app)
 
+---
+
 ## Help documentation 
+
+### System/hardware requirements: 
+Python 3 (please see https://www.python.org/downloads/ for instructions to download)
 
 ### Dependencies:
 Third party packages used include PrettyTable and Art. Steps for downloading these have been included in the installation instructions below.
 
-### System/hardware requirements: 
-
 ### Installation instructions
 ### First time:
 1. Open Terminal
-2. Create a virtual environment by running the following command line instruction:
+2. Create a new folder for the application by running the following command line instruction:  
+   `mkdir task-tracker`
+3. Navigate into the folder:  
+   `cd task-tracker`
+4. Clone (or download) the files for the application:  
+   `git clone git@github.com:Vickyyn/terminal-app.git`
+5. Create a virtual environment to store dependencies:  
    `python3 -m venv venv`
-3. Install the Task Tracker package:
-   `python3 -m pip install task-tracker-itsvicky`
-4. Install the two dependencies:
-   `python3 -m pip install prettytable`
-   `python3 -m pip install art`
-   `pip install -r requirements.txt`
-5. Run the program:
-
-### Subsequent times:
-1. Open Terminal
-2. Enter the virtual environment created last time:
+6. Enter the virtual environment. You should see (venv) in front of your command line after this step:  
    `source venv/bin/activate`
-3. Run the program: 
+7. Download dependencies (prettytable 3.4.1 and art 5.7, as well as a subdependency of wcwidth 0.2.5):  
+   `pip install -r requirements.txt`
+8. You are ready to go! Enter the following to run the programme:  
+   `python3 main.py`
 
-
-including set of instruction which accurately describe how to use and install the application 
-NEED TO INSERT HERE 
-
-NOTES:
-PEP8: Limit all lines to maximum of 79 characters
-
-cute fonts 'block' 'modular' 'dancingfont' 'funface' 'funfaces'
-
-
-
-Other notes:
-- 4 or more Python packages into the code
-- makes extensive use of functions from one or more Python packages (beyond req of apps)
-- 6 or more simple functions and uses at least 5 of these in code 
+### Using the programme after first installation:
+1. Open Terminal
+2. Navigate into the task tracker folder:  
+   `cd task-tracker`
+3. Enter the virtual environment (to access the dependencies). You should see (venv) in front of your command line after this step:  
+   `source venv/bin/activate`
+4. Run the programme:  
+   `python3 main.py`
