@@ -1,9 +1,9 @@
+# Initially included as part of installation instructions, but then decided would be simpler to just run direct commands. 
+# Keeping in case I change my mind.
+
 #!/bin/bash
 
-# python3 -m venv venv
-# source venv/bin/activate
-# pip install -r requirements.txt
-
+# would have to run source ./sample_bash_script.sh to run this
 
 
 # if [[ -x "$(command -v python)" ]]
