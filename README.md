@@ -73,8 +73,7 @@ Third party packages used include PrettyTable and Art. Steps for downloading the
    Note: If you cannot do this step due to not having git installed, please follow this guide for installation: https://github.com/git-guides/install-git
 3. Navigate into the cloned/downloaded folder where the files are stored:  
    `cd task-tracker/src`
-4. Create a virtual environment to store dependencies:  
-   `python3 -m venv venv`
+4. Create a virtual environment to store dependencies (this is so the dependencies are confined to the virtual environment. If you would like to download the dependencies globally, then please skip this step, step 5, and step 8)
 5. Enter the virtual environment. You should see (venv) in front of your command line after this step:  
    `source venv/bin/activate`
 6. Download dependencies (prettytable 3.4.1 and art 5.7, as well as a subdependency of wcwidth 0.2.5):  
@@ -88,7 +87,7 @@ Third party packages used include PrettyTable and Art. Steps for downloading the
 1. Open Terminal
 2. Navigate into the task tracker folder:  
    `cd task-tracker/src`
-3. Enter the virtual environment (to access the dependencies). You should see (venv) in front of your command line after this step:  
+3. Enter the virtual environment (to access the dependencies). You should see (venv) in front of your command line after this step. If you have downloaded the dependencies globally during first installation, then you can skip this step and step 5:  
    `source venv/bin/activate`
 4. Run the programme:  
    `python3 main.py`
