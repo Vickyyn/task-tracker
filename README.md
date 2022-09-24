@@ -59,37 +59,15 @@ Krekel H, Oliveira B, Pfannschmidt R, Bruynooghe F, Laugher B, Bruhin F, and oth
 ## Help documentation 
 
 ### System/hardware requirements: 
-Python 3 (please see https://www.python.org/downloads/ to download)  
-
+Python 3 (please see https://www.python.org/downloads/ to download if needed)  
 
 ### Dependencies:
 Third party packages used include PrettyTable and Art. Steps for downloading these have been included in the installation instructions below.
 
-### Installation instructions
-### First time:
+### Installation and usage instructions
 1. Open Terminal
-2. Clone (or download) the files for the application:  
+2. Clone (or download) the files for the application by running the following (you only have to do this once - skip this step when running the application on subsequent times):  
    `git clone git@github.com:Vickyyn/task-tracker.git`  
    Note: If you cannot do this step due to not having git installed, please follow this guide for installation: https://github.com/git-guides/install-git
-3. Navigate into the cloned/downloaded folder where the files are stored:  
-   `cd task-tracker/src`
-4. Create a virtual environment to store dependencies (this is so the dependencies are confined to the virtual environment. If you would like to download the dependencies globally, then please skip this step, step 5, and step 8)
-5. Enter the virtual environment. You should see (venv) in front of your command line after this step:  
-   `source venv/bin/activate`
-6. Download dependencies (prettytable 3.4.1 and art 5.7, as well as a subdependency of wcwidth 0.2.5):  
-   `pip install -r requirements.txt`
-7.  You are ready to go! Enter the following to run the programme:  
-   `python3 main.py`
-8. If you wish to continue using Terminal after closing the application, input the following to exit the virtual environment (the (venv) should disappear from the start of the command line):  
-   `deactivate`
-
-### Using the programme after first installation:
-1. Open Terminal
-2. Navigate into the task tracker folder:  
-   `cd task-tracker/src`
-3. Enter the virtual environment (to access the dependencies). You should see (venv) in front of your command line after this step. If you have downloaded the dependencies globally during first installation, then you can skip this step and step 5:  
-   `source venv/bin/activate`
-4. Run the programme:  
-   `python3 main.py`
-5. If you wish to continue using Terminal after closing the application, input the following to exit the virtual environment (the (venv) should disappear from the start of the command line):  
-   `deactivate`
+3. Run the following command to start the application! It will let you know if there are any errors prior to running the application:     
+   `./src/run_task_tracker.sh`

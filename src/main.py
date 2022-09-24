@@ -42,7 +42,7 @@ while True:
             sort_tasks(table)
 
             # Prompts user for next action they would like to take
-            loop_page(sort)
+            loop_page("sort")
 
     # Add tasks
     elif main_response.lower() in {"2", "a", "add"}:
@@ -83,7 +83,7 @@ while True:
                 " successfully added!")
 
             # Prompt user for next step
-            add_input = loop_page('add')
+            add_input = loop_page("add")
             
     # Edit tasks
     elif main_response.lower() in {"3", "e", "edit"}:
@@ -128,7 +128,7 @@ while True:
                 print("This task does not exist. Please try again. \n")
 
             # Prompt user for next step
-            edit_input = loop_page('edit')
+            edit_input = loop_page("edit")
         
     # Delete tasks
     elif main_response.lower() in {"4", "d", "delete"}:
@@ -168,7 +168,7 @@ while True:
                 print("This task does not exist. Please try again. \n")
 
             # Prompt user for next step
-            delete_input = loop_page('delete')
+            delete_input = loop_page("delete")
 
     # Complete tasks
     elif main_response.lower() in {"5", "c", "complete"}:
@@ -204,7 +204,7 @@ while True:
                 print("This task does not exist. Please try again. \n")
 
             # Prompt user for next step
-            complete_input = loop_page('complete')            
+            complete_input = loop_page("complete")            
 
     # Quit option
     elif main_response.lower() in {"6", "exit", "quit"}:
