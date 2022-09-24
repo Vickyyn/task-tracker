@@ -62,7 +62,7 @@ Krekel H, Oliveira B, Pfannschmidt R, Bruynooghe F, Laugher B, Bruhin F, and oth
 Python 3 (please see https://www.python.org/downloads/ to download if needed)  
 
 ### Dependencies:
-Third party packages used include PrettyTable and Art. Steps for downloading these have been included in the installation instructions below.
+Third party packages used include PrettyTable 3.4.1 and Art 5.7, as well as a subdependency of wcwidth 0.2.5. These are automatically installed (if not already installed) by following the below installation guide.
 
 ### Installation and usage instructions
 1. Open Terminal
