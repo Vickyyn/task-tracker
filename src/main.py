@@ -63,28 +63,31 @@ while True:
         add_input = True
         while add_input:
             # Create task
-            name, duration, due_date, year, month, day = change_task(
-                "You are adding a new task! \nWhat is the name of the task? ",
-                "Approximately how much time does it take to do the task? "
-                    "Please input in HH:MM format. ",
-                "When does the task need to be completed by? Please input in "
-                    "DD/MM/YYYY format. ")
-            named_task = Task(name, duration, year, month, day)
-
-            # Unpickle data
-            task_list = read_pickle()
+            print("You are adding a new task!")
+            named_task = Task()
+            named_task.tname = input("What is the name of the task? ")
 
             # Ensure new task name is unique, and subsequent name attempts 
                 # are also unique
+            # Unpickle data
+            task_list = read_pickle()
+
             while True:
                 i = 0
                 for task in task_list:
                     i += 1
-                    if named_task.values[0] == task.values[0]:
+                    if named_task.tname == task.tname:
                         named_task.edit_duplicate()
                         i = 0
                 if i == len(task_list):
                     break
+
+            # Set remaining attributes of task
+            named_task.tvalues = enter_tvalues(
+                "Approximately how much time does it take to do the task? "
+                    "Please input in HH:MM format. ",
+                "When does the task need to be completed by? Please input in "
+                    "DD/MM/YYYY format. ")
 
             # Update and pickle data
             task_list.append(named_task)

@@ -13,20 +13,29 @@ class WordValueError(ValueError):
     pass
 
 class Task:
-    def __init__(self, name, duration, year, month, day):
+    def __init__(self, name = "", duration = 0, year = 0, month = 0, day = 0):
         self.__name = name
         self.__duration = duration
         self.__due_date = datetime.datetime(year, month, day).date()
 
+    # Split out name from other attributes to help with checking for duplications
     @property
-    def values(self):
-        return self.__name, self.__duration, self.__due_date
-        # .strftime('%Y-%m-%d')
+    def tname(self):
+        return self.__name
 
-    @values.setter
-    def values(self, value_tuple):
-        name, duration, year, month, day = value_tuple
+    @tname.setter
+    def tname(self, name):
+        while not name:
+            name = input("Task names cannot be blank! Please input a name: ")
         self.__name = name
+
+    @property
+    def tvalues(self):
+        return self.__duration, self.__due_date
+
+    @tvalues.setter
+    def tduration(self, value_tuple):
+        duration, year, month, day = value_tuple
         self.__duration = duration
         self.__due_date = datetime.datetime(year, month, day).date()
 
@@ -37,7 +46,7 @@ class Task:
             f"Complete by (Y-M-D): {self.__due_date} \n")
 
     def edit_self(self):
-        name, duration, due_date, year, month, day = change_task(
+        name, duration, year, month, day = enter_tvalues(
             "What would you like the new name to be? ",
             "What is the new estimated time to complete the task? "
                 "Please input in HH:MM format. ",
@@ -46,12 +55,8 @@ class Task:
         self.values = (name, duration, year, month, day)
 
     def edit_duplicate(self):
-        name, duration, due_date, year, month, day = change_task(
-            "\nA task with this name already exists. \n"
-                "Please input a new name: ",
-            "Time needed (HH:MM): ",
-            "Complete by (DD/MM/YYYY): ")
-        self.values = (name, duration, year, month, day)        
+        print("\n A task with this name already exists. \n")
+        self.tname = input("Please input a new name: ")   
 
 def duration_fx(prompt):
     hour = None
@@ -98,19 +103,18 @@ def date_fx(prompt):
             day = None
             month = None
             year = None
-    return due_date, year, month, day
+    return year, month, day
 
-def name_fx(prompt):
-    name = input(prompt)
-    while not name:
-        name = input("Task names cannot be blank! Please input a name: ")
-    return name
+# def name_fx(prompt):
+#     name = input(prompt)
+#     while not name:
+#         name = input("Task names cannot be blank! Please input a name: ")
+#     return name
 
-def change_task(name_prompt, duration_prompt, date_prompt):
-    name = name_fx(name_prompt)
+def enter_tvalues(duration_prompt, date_prompt):
     duration = duration_fx(duration_prompt)
-    due_date, year, month, day = date_fx(date_prompt)
-    return name, duration, due_date, year, month, day
+    year, month, day = date_fx(date_prompt)
+    return duration, year, month, day
 
 def loop_page(page):
     while True:
