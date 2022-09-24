@@ -1,6 +1,5 @@
 # More packages in tasks.py
 from tasks import *
-from art import *
 from prettytable import PrettyTable
 
 # Fun title
@@ -34,7 +33,7 @@ while True:
             table = PrettyTable()
             table.field_names = ["Name", "Time needed (minutes)", "Complete by"]
             for task in task_list:
-                table.add_row([task.values[0], task.values[1], task.values[2]])
+                table.add_row([task.tname, task.tvalues[0], task.tvalues[1]])
 
             # Print table at entry page for convenience
             print(f"{table}\n\n")
@@ -43,20 +42,7 @@ while True:
             sort_tasks(table)
 
             # Prompts user for next action they would like to take
-            # Different wording to loop function
-            while True:
-                view_input = input("Enter 'view' to return to default view "
-                    "page, 'back' to return to main menu, or 'quit' to exit. ")
-                if view_input == 'view':
-                    print("")
-                    break
-                if view_input == "back":
-                    print("")
-                    view_input = False
-                    break
-                if view_input == "quit":
-                    raise SystemExit
-                print("Please enter 'view', 'back', or 'quit'")
+            loop_page(sort)
 
     # Add tasks
     elif main_response.lower() in {"2", "a", "add"}:
@@ -67,8 +53,7 @@ while True:
             named_task = Task()
             named_task.tname = input("What is the name of the task? ")
 
-            # Ensure new task name is unique, and subsequent name attempts 
-                # are also unique
+            # Ensure new task name is unique, and loop until so 
             # Unpickle data
             task_list = read_pickle()
 
@@ -76,14 +61,14 @@ while True:
                 i = 0
                 for task in task_list:
                     i += 1
-                    if named_task.tname == task.tname:
+                    if named_task.tname.lower() == task.tname.lower():
                         named_task.edit_duplicate()
                         i = 0
                 if i == len(task_list):
                     break
 
             # Set remaining attributes of task
-            named_task.tvalues = enter_tvalues(
+            named_task.enter_tvalues(
                 "Approximately how much time does it take to do the task? "
                     "Please input in HH:MM format. ",
                 "When does the task need to be completed by? Please input in "
@@ -114,22 +99,26 @@ while True:
             # Check the name exists
             name_exists = False
             for i in task_list:
-                if i.values[0] == edit_name:
+                if i.tname.lower() == edit_name.lower():
                     name_exists = True
                     # Show details of task to be edited, and edits task
-                    i.print_confirmation("You are editing:")                    
-                    i.edit_self()
+                    i.print_confirmation("You are editing:")    
+                    i.tname = input("What would you like the new name to be? "
+                        "You can re-enter the same name. ")
 
-                    # Check the name is unique
+                    # Check and loop until unique name
                     while True:
                         counter = 0
                         for task in task_list:
-                            if i.values[0] == task.values[0]:
+                            if i.tname.lower() == task.tname.lower():
                                 counter += 1
                         if counter == 1:
                             break
                         if counter == 2:
                             i.edit_duplicate()
+
+                    i.enter_tvalues("What is the new estimated time to complete the task? Please input in HH:MM format. ", 
+                        "When is the new completion date? Please input in DD/MM/YYYY format. ")
 
                     # Confirms edited details and pickles data
                     i.print_confirmation("\nYou have edited to:")
@@ -155,7 +144,7 @@ while True:
             # Check name exists
             name_exists = False
             for task in task_list:
-                if task.values[0] == delete_name:
+                if task.tname.lower() == delete_name.lower():
                     name_exists = True
                     # Shows details of task 
                     task.print_confirmation("You are deleting:")
@@ -195,7 +184,7 @@ while True:
                 "would like to complete: ")  
             name_exists = False          
             for task in task_list:
-                if task.values[0] == complete_name:
+                if task.tname.lower() == complete_name.lower():
                     name_exists = True
                     # Confirm task to be completed
                     task.print_confirmation("You are completing:")
@@ -203,13 +192,7 @@ while True:
                         complete_input = input("Is this the right task? ")
                         if complete_input.lower() in {"y", "yes"}:
                             # Complete task with bonus ASCII text art, remove task and pickle data
-                            input(f"You have completed the task '{task.values[0]}'!"
-                                " Press enter for a bigger message. ")
-                            print("\n\n")
-                            tprint("Congratulations \n\n", font = "dancingfont")
-                            tprint(f"{task.values[0]}", font = "rnd-medium")
-                            print_random_complete_font()
-                            print("\n\n")
+                            task.complete()
                             task_list.remove(task)
                             write_pickle(task_list)   
                             complete_input = 'no'

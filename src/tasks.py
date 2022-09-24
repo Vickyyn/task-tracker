@@ -13,7 +13,7 @@ class WordValueError(ValueError):
     pass
 
 class Task:
-    def __init__(self, name = "", duration = 0, year = 0, month = 0, day = 0):
+    def __init__(self, name = "", duration = 0, year = 1, month = 1, day = 1):
         self.__name = name
         self.__duration = duration
         self.__due_date = datetime.datetime(year, month, day).date()
@@ -34,29 +34,33 @@ class Task:
         return self.__duration, self.__due_date
 
     @tvalues.setter
-    def tduration(self, value_tuple):
+    def tvalues(self, value_tuple):
         duration, year, month, day = value_tuple
         self.__duration = duration
         self.__due_date = datetime.datetime(year, month, day).date()
+
+    def enter_tvalues(self, duration_prompt, date_prompt):
+        self.__duration = duration_fx(duration_prompt)
+        self.__due_date = date_fx(date_prompt)
+
+    def edit_duplicate(self):
+        print("\nA task with this name already exists. Tasks are not case sensitive. \n")
+        self.tname = input("Please input a new name: ")   
 
     def print_confirmation(self, detail):
         print(f"{detail} \n"
             f"Name: {self.__name} \n"
             f"Time needed (minutes): {self.__duration} \n"
-            f"Complete by (Y-M-D): {self.__due_date} \n")
-
-    def edit_self(self):
-        name, duration, year, month, day = enter_tvalues(
-            "What would you like the new name to be? ",
-            "What is the new estimated time to complete the task? "
-                "Please input in HH:MM format. ",
-            "When is the new completion date? "
-                "Please input in DD/MM/YYYY format. ")
-        self.values = (name, duration, year, month, day)
-
-    def edit_duplicate(self):
-        print("\n A task with this name already exists. \n")
-        self.tname = input("Please input a new name: ")   
+            f"Complete by (Y-M-D): {self.__due_date} \n")   
+    
+    def complete(self):
+        input(f"You have completed the task '{self.__name}'!"
+        " Press enter for a bigger message. ")
+        print("\n\n")
+        tprint("Congratulations \n\n", font = "dancingfont")
+        tprint(self.__name, font = "rnd-medium")
+        print_random_complete_font()
+        print("\n\n")    
 
 def duration_fx(prompt):
     hour = None
@@ -103,18 +107,14 @@ def date_fx(prompt):
             day = None
             month = None
             year = None
-    return year, month, day
+    return due_date
 
-# def name_fx(prompt):
-#     name = input(prompt)
-#     while not name:
-#         name = input("Task names cannot be blank! Please input a name: ")
-#     return name
-
-def enter_tvalues(duration_prompt, date_prompt):
-    duration = duration_fx(duration_prompt)
-    year, month, day = date_fx(date_prompt)
-    return duration, year, month, day
+def print_random_complete_font():
+    fonttype = random.randrange(2)
+    if fonttype == 0:
+        tprint("has been completed!", font = "modular") 
+    else:
+        tprint("has been completed!", font = "funfaces")    
 
 def loop_page(page):
     while True:
@@ -181,9 +181,3 @@ def sort_tasks(table):
         except ValueError as err:
             input(err) 
 
-def print_random_complete_font():
-    fonttype = random.randrange(2)
-    if fonttype == 0:
-        tprint("has been completed!", font = "modular") 
-    else:
-        tprint("has been completed!", font = "funfaces")       
