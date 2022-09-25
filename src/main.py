@@ -42,7 +42,7 @@ while True:
             sort_tasks(table)
 
             # Prompts user for next action they would like to take
-            loop_page("sort")
+            view_input = loop_page("sort")
 
     # Add tasks
     elif main_response.lower() in {"2", "a", "add"}:
