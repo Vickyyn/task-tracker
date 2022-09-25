@@ -48,6 +48,8 @@ Rossum G, Warsaw B, Coghlan N, 01 Aug 2013, PEP 8 - Style Guide for Python Code,
 Maurits L, 2022, PrettyTable 3.4.1, \<https://pypi.org/project/prettytable/\>
 ### Pytest 7.1.3
 Krekel H, Oliveira B, Pfannschmidt R, Bruynooghe F, Laugher B, Bruhin F, and others, 2022, pytest 7.1.3, \<https://pypi.org/project/pytest/>
+### Python installation instructions
+Vincent W, 19 July 2021, Python 3 Installation & Setup Guide, viewed 24 September 2022, \<http://wsvincent.com/install-python/>
 
 ---
 
@@ -59,7 +61,7 @@ Krekel H, Oliveira B, Pfannschmidt R, Bruynooghe F, Laugher B, Bruhin F, and oth
 ## Help documentation 
 
 ### System/hardware requirements: 
-Python 3 (please see https://www.python.org/downloads/ to download if needed)  
+Python 3 (please see http://wsvincent.com/install-python/ for an installation and setup guide if needed)  
 
 ### Dependencies:
 Third party packages used include PrettyTable 3.4.1 and Art 5.7, as well as a subdependency of wcwidth 0.2.5. These are automatically installed (if not already installed) by following the below installation guide.
@@ -67,7 +69,9 @@ Third party packages used include PrettyTable 3.4.1 and Art 5.7, as well as a su
 ### Installation and usage instructions
 1. Open Terminal
 2. Clone (or download) the files for the application by running the following (you only have to do this once - skip this step when running the application on subsequent times):  
-   `git clone git@github.com:Vickyyn/task-tracker.git`  
+   `git clone https://github.com/Vickyyn/task-tracker.git`  
    Note: If you cannot do this step due to not having git installed, please follow this guide for installation: https://github.com/git-guides/install-git
-3. Run the following command to start the application! It will let you know if there are any errors prior to running the application:     
+3. Navigate into the downloaded application folder:  
+   `cd task-tracker`
+4. Run the following command to start the application! It will let you know if there are any errors prior to running the application:     
    `./src/run_task_tracker.sh`

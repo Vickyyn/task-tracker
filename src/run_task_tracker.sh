@@ -3,7 +3,8 @@
 if ! [[ -x "$(command -v python3)" ]]
 then
     echo "Error:
-        This program needs Python 3 to run. Please check out https://www.python.org/downloads/ to install" >&2 
+        This program needs Python 3 to run. 
+        Check out https://wsvincent.com/install-python/ for an installation and setup guide. " >&2 
     exit 1
 # Pip should already be installed in a virtual environment so I've taken out this code section
 # elif ! [[ -x "$(command -v pip)" ]]
