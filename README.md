@@ -7,6 +7,10 @@ Keep track of your tasks!
 
 --- 
 
+## [Video presentation](https://youtu.be/cpog0VzEkOo)
+
+--- 
+
 ## Features 
 ### View and sort tasks
 - view list all tasks
